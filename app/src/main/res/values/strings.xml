@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Show Time</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_tv">TV</string>
+    <string name="title_favorite">Favorite</string>
+    <string name="title_profile">Profile</string>
+</resources>
