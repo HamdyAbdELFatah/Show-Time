@@ -7,8 +7,12 @@
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="com.hamdy.showtime.ui.ui.home.HomeFragment"
-        tools:layout="@layout/fragment_home" />
+        android:name="com.hamdy.showtime.ui.ui.home.ui.HomeFragment"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_navigation_home_to_fragment_all_movies"
+            app:destination="@id/fragment_all_movies" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_tv"
@@ -24,4 +28,13 @@
         android:id="@+id/navigation_favorite"
         android:name="com.hamdy.showtime.ui.ui.favorite.FavoriteFragment"
         tools:layout="@layout/fragment_favorite" />
+    <fragment
+        android:id="@+id/fragment_all_movies"
+        android:name="com.hamdy.showtime.fragment_all_movies"
+        android:label="fragment_all_movies"
+        tools:layout="@layout/fragment_all_movies" >
+        <argument
+            android:name="playListType"
+            app:argType="string" />
+    </fragment>
 </navigation>

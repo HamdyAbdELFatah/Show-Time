@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.ui.home.HomeFragment">
+    tools:context=".ui.ui.home.ui.HomeFragment">
 
     <ScrollView
         android:layout_width="0dp"
@@ -32,20 +32,19 @@
                 app:layout_constraintTop_toBottomOf="@+id/hightRateRecyclerView" />
 
             <TextView
-                android:id="@+id/textView6"
+                android:id="@+id/seeAllUpComing"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="See All"
                 android:textColor="@color/colorAccent"
-                app:layout_constraintEnd_toEndOf="@+id/textView4"
+                app:layout_constraintEnd_toEndOf="@+id/seeAllTopRated"
                 app:layout_constraintTop_toTopOf="@+id/textView5" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/upcomingRecyclerView"
                 android:layout_width="0dp"
-                android:layout_height="0dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                app:layout_constraintDimensionRatio="2:1"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@+id/popularRecyclerView"
@@ -54,9 +53,8 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/hightRateRecyclerView"
                 android:layout_width="0dp"
-                android:layout_height="0dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                app:layout_constraintDimensionRatio="2:1"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/popularRecyclerView"
                 app:layout_constraintTop_toBottomOf="@+id/textView3" />
@@ -72,19 +70,18 @@
                 app:layout_constraintTop_toBottomOf="@+id/popularRecyclerView" />
 
             <TextView
-                android:id="@+id/textView4"
+                android:id="@+id/seeAllTopRated"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="See All"
                 android:textColor="@color/colorAccent"
-                app:layout_constraintEnd_toEndOf="@+id/textView2"
+                app:layout_constraintEnd_toEndOf="@+id/seeAllPopular"
                 app:layout_constraintTop_toTopOf="@+id/textView3" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/trendingRecyclerview"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                app:layout_constraintDimensionRatio="1.8:1"
+                android:layout_height="wrap_content"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
@@ -103,7 +100,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/trendingRecyclerview" />
 
             <TextView
-                android:id="@+id/textView2"
+                android:id="@+id/seeAllPopular"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
@@ -116,12 +113,12 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/popularRecyclerView"
                 android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_marginTop="8dp"
-                app:layout_constraintDimensionRatio="2:1"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="@+id/textView"
-                app:layout_constraintTop_toBottomOf="@+id/textView2" />
+                app:layout_constraintTop_toBottomOf="@+id/seeAllPopular" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>
