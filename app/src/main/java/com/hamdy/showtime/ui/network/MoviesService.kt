@@ -9,15 +9,15 @@ import retrofit2.http.Query
 interface MoviesService {
 
     @GET("movie/popular?")
-    suspend fun getPopular(@Query("api_key") key:String): Response<PopularResponse>
+    suspend fun getPopular(@Query("api_key") key:String,@Query("page") page:Int): Response<PopularResponse>
 
     @GET("movie/top_rated?")
-    suspend fun getTopRated(@Query("api_key") key:String): Response<PopularResponse>
+    suspend fun getTopRated(@Query("api_key") key:String,@Query("page") page:Int): Response<PopularResponse>
 
     @GET("movie/upcoming?")
-    suspend fun getUpComing(@Query("api_key") key:String): Response<PopularResponse>
+    suspend fun getUpComing(@Query("api_key") key:String,@Query("page") page:Int): Response<PopularResponse>
 
     @GET("trending/movie/day?")
-    suspend fun getTrending(@Query("api_key") key:String): Response<PopularResponse>
+    suspend fun getTrending(@Query("api_key") key:String,@Query("page") page:Int): Response<PopularResponse>
 
 }

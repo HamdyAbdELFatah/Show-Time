@@ -9,10 +9,11 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.hamdy.showtime.R
+import com.hamdy.showtime.ui.ui.all_movies.ui.AllMoviesViewModel
 
 class FavoriteFragment : Fragment() {
 
-    private lateinit var favoriteViewModel: FavoriteViewModel
+    private lateinit var favoriteViewModel: AllMoviesViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -20,12 +21,12 @@ class FavoriteFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         favoriteViewModel =
-            ViewModelProvider(this).get(FavoriteViewModel::class.java)
+            ViewModelProvider(this).get(AllMoviesViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_favorite, container, false)
         val textView: TextView = root.findViewById(R.id.text_favorite)
-        favoriteViewModel.text.observe(viewLifecycleOwner, Observer {
-            textView.text = it
-        })
+//        favoriteViewModel.text.observe(viewLifecycleOwner, Observer {
+//            textView.text = it
+//        })
         return root
     }
 }

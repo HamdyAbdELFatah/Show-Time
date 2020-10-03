@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.ui.favorite.FavoriteFragment">
+    tools:context=".ui.ui.all_movies.ui.AllMoviesFragment">
 
     <TextView
         android:id="@+id/text_favorite"

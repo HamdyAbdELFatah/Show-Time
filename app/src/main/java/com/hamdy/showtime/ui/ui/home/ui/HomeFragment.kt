@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.Nullable
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -67,12 +68,18 @@ class HomeFragment : Fragment(), View.OnClickListener {
             upComingAdapter.setPopular(it)
         })
         binding.seeAllPopular.setOnClickListener(this)
+        binding.seeAllTopRated.setOnClickListener(this)
+        binding.seeAllUpComing.setOnClickListener(this)
     }
 
     override fun onClick(p0: View?) {
+        var bundle = bundleOf("type" to "upComing")
         when(p0?.id){
-            R.id.seeAllPopular->{p0.findNavController().navigate(R.id.action_navigation_home_to_fragment_all_movies)}
+            R.id.seeAllPopular->bundle = bundleOf("type" to "popular")
+            R.id.seeAllTopRated->bundle = bundleOf("type" to "topRate")
         }
+        p0?.findNavController()?.navigate(R.id.action_navigation_home_to_fragment_all_movies,bundle)
+
     }
 
 

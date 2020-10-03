@@ -68,4 +68,6 @@ dependencies {
     implementation 'de.hdodenhof:circleimageview:3.1.0'
     // coil
     implementation("io.coil-kt:coil:1.0.0-rc3")
+    //sdp
+    implementation 'com.intuit.sdp:sdp-android:1.0.6'
 }

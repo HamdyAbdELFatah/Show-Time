@@ -26,11 +26,11 @@
 
     <fragment
         android:id="@+id/navigation_favorite"
-        android:name="com.hamdy.showtime.ui.ui.favorite.FavoriteFragment"
+        android:name="com.hamdy.showtime.ui.ui.all_movies.ui.AllMoviesFragment"
         tools:layout="@layout/fragment_favorite" />
     <fragment
         android:id="@+id/fragment_all_movies"
-        android:name="com.hamdy.showtime.fragment_all_movies"
+        android:name="com.hamdy.showtime.ui.ui.all_movies.ui.AllMoviesFragment"
         android:label="fragment_all_movies"
         tools:layout="@layout/fragment_all_movies" >
         <argument

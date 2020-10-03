@@ -9,44 +9,25 @@ import com.hamdy.showtime.ui.util.API_KEY
 
 class HomeRepository {
 
-   suspend fun getPopular():List<PopularResultsItem>? {
-            val client= RetrofitClient.getInstance().create(MoviesService::class.java).getPopular(API_KEY)
-            if(client.isSuccessful){
-                Log.d("HomeViewModel",client.body().toString())
-            }else{
-                Log.e("HomeViewModel",client.message())
-            }
-       return client.body()?.results
+    private val TAG = "HomeRepository"
+    suspend fun getPopular():List<PopularResultsItem>? {
+        val client= RetrofitClient.getInstance().create(MoviesService::class.java).getPopular(API_KEY,1)
+        return client.body()?.results
     }
 
-   suspend fun getTopRated():List<PopularResultsItem>? {
-            val client= RetrofitClient.getInstance().create(MoviesService::class.java).getTopRated(API_KEY)
-            if(client.isSuccessful){
-                Log.d("HomeViewModel",client.body().toString())
-            }else{
-                Log.e("HomeViewModel",client.message())
-            }
-       return client.body()?.results
+    suspend fun getTopRated():List<PopularResultsItem>? {
+        val client= RetrofitClient.getInstance().create(MoviesService::class.java).getTopRated(API_KEY,1)
+        return client.body()?.results
     }
 
-   suspend fun getUpComing():List<PopularResultsItem>? {
-            val client= RetrofitClient.getInstance().create(MoviesService::class.java).getUpComing(API_KEY)
-            if(client.isSuccessful){
-                Log.d("HomeViewModel",client.body().toString())
-            }else{
-                Log.e("HomeViewModel",client.message())
-            }
-       return client.body()?.results
+    suspend fun getUpComing():List<PopularResultsItem>? {
+        val client= RetrofitClient.getInstance().create(MoviesService::class.java).getUpComing(API_KEY,1)
+        return client.body()?.results
     }
 
     suspend fun getTrending():List<PopularResultsItem>? {
-            val client= RetrofitClient.getInstance().create(MoviesService::class.java).getTrending(API_KEY)
-            if(client.isSuccessful){
-                Log.d("HomeViewModel",client.body().toString())
-            }else{
-                Log.e("HomeViewModel",client.message())
-            }
-       return client.body()?.results
+        val client= RetrofitClient.getInstance().create(MoviesService::class.java).getTrending(API_KEY,1)
+        return client.body()?.results
     }
 
 
