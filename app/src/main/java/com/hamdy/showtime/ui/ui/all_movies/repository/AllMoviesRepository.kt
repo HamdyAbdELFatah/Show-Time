@@ -5,6 +5,7 @@ import com.hamdy.showtime.ui.network.MoviesService
 import com.hamdy.showtime.ui.network.RetrofitClient
 import com.hamdy.showtime.ui.ui.home.model.PopularResponse
 import com.hamdy.showtime.ui.util.API_KEY
+import kotlinx.coroutines.delay
 
 class AllMoviesRepository {
 

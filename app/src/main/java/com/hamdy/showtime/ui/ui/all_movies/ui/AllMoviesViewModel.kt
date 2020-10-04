@@ -6,46 +6,53 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.hamdy.showtime.ui.ui.all_movies.repository.AllMoviesRepository
 import com.hamdy.showtime.ui.ui.home.model.PopularResultsItem
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.*
 
 class AllMoviesViewModel : ViewModel() {
-
+    private val TAG = "AllMoviesViewModel"
     private val allMoviesRepository= AllMoviesRepository()
     var listMovies = MutableLiveData<List<PopularResultsItem>>()
-     var list = mutableListOf<PopularResultsItem>()
+    var list = mutableListOf<PopularResultsItem>()
     var totalPages = MutableLiveData<Int>()
-    fun getPopular(page:Int) {
+    init {
+        Log.d(TAG, "Hamdy :${list.size} size ${listMovies.value?.size} ")
+    }
+    fun getPopular() {
         viewModelScope.launch(Dispatchers.IO) {
-            val response = allMoviesRepository.getPopular(page)
-            withContext(Dispatchers.Main) {
-                list.addAll(response?.results!!)
-                listMovies.postValue(list)
+            for (i in 1..totalPages.value!!) {
+                val response = allMoviesRepository.getPopular(i)
+                withContext(Dispatchers.Main) {
+                    list.addAll(response?.results!!)
+                    listMovies.postValue(list)
+                }
             }
         }
     }
-    fun getTopRated(page:Int) {
-         viewModelScope.launch(Dispatchers.IO) {
-             val response = allMoviesRepository.getTopRated(page)
-             withContext(Dispatchers.Main) {
-                 list.addAll(response?.results!!)
-                 listMovies.postValue(list)
-             }
-         }
-     }
-     fun getUpComing(page:Int) {
-         viewModelScope.launch(Dispatchers.IO) {
-             val response = allMoviesRepository.getUpComing(page)
-             withContext(Dispatchers.Main) {
-                 list.addAll(response?.results!!)
-                 listMovies.postValue(list)
-             }
-         }
-     }
-    fun getTrending(page:Int) {
+    fun getTopRated(){
         viewModelScope.launch(Dispatchers.IO) {
-            val response=allMoviesRepository.getTrending(page)
+            for (i in 1..totalPages.value!!) {
+                val response = allMoviesRepository.getTopRated(i)
+                withContext(Dispatchers.Main) {
+                    list.addAll(response?.results!!)
+                    listMovies.postValue(list)
+                }
+            }
+         }
+     }
+     fun getUpComing() {
+          viewModelScope.launch(Dispatchers.IO) {
+              for (i in 1..totalPages.value!!) {
+                  val response = allMoviesRepository.getUpComing(i)
+                  withContext(Dispatchers.Main) {
+                      list.addAll(response?.results!!)
+                      listMovies.postValue(list)
+                  }
+              }
+         }
+     }
+    fun getTrending() {
+        viewModelScope.launch(Dispatchers.IO) {
+            val response=allMoviesRepository.getTrending(1)
             withContext(Dispatchers.Main){
                 list.addAll(response?.results!!)
                listMovies.postValue(list)
@@ -57,6 +64,7 @@ class AllMoviesViewModel : ViewModel() {
         viewModelScope.launch(Dispatchers.IO) {
             val response = allMoviesRepository.getPopular(1)
             withContext(Dispatchers.Main) {
+                Log.d(TAG, "getPopularTotalResult: pages ${response?.totalPages} results ${response?.totalResults}")
                 totalPages.postValue(response?.totalPages)
             }
         }
@@ -78,8 +86,4 @@ class AllMoviesViewModel : ViewModel() {
         }
     }
 
-    override fun onCleared() {
-        super.onCleared()
-        list.clear()
-    }
 }

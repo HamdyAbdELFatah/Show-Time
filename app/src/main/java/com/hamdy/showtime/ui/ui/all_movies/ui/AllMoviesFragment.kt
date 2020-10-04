@@ -1,6 +1,7 @@
 package com.hamdy.showtime.ui.ui.all_movies.ui
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,7 +13,7 @@ import com.hamdy.showtime.databinding.FragmentAllMoviesBinding
 import com.hamdy.showtime.ui.ui.home.adapter.PopularAdapter
 
 class AllMoviesFragment : Fragment() {
-
+    private val TAG = "AllMoviesFragment"
     private lateinit var allMoviesViewModel: AllMoviesViewModel
     private lateinit var binding: FragmentAllMoviesBinding
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -40,20 +41,19 @@ class AllMoviesFragment : Fragment() {
         val adapter=PopularAdapter()
         binding.allMoviesRecyclerView.adapter=adapter
         allMoviesViewModel.listMovies.observe(viewLifecycleOwner, Observer {
+            //Log.d(TAG, "onActivityCreated: ${it.size}")
             adapter.setPopular(it)
         })
         allMoviesViewModel.totalPages.observe(viewLifecycleOwner, Observer {
-            for(i in 1..it){
-                when (type) {
-                    "popular" -> {
-                        allMoviesViewModel.getPopular(i)
-                    }
-                    "topRate" -> {
-                        allMoviesViewModel.getTopRated(i)
-                    }
-                    else -> {
-                        allMoviesViewModel.getUpComing(i)
-                    }
+            when (type) {
+                "popular" -> {
+                    allMoviesViewModel.getPopular()
+                }
+                "topRate" -> {
+                    allMoviesViewModel.getTopRated()
+                }
+                else -> {
+                    allMoviesViewModel.getUpComing()
                 }
             }
         })

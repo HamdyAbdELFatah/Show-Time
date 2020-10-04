@@ -45,7 +45,8 @@
                 android:textSize="@dimen/_14sdp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/movieImage"
-                app:layout_constraintTop_toBottomOf="@+id/movieImage" />
+                app:layout_constraintTop_toBottomOf="@+id/movieImage"
+                app:layout_constraintVertical_bias="0.555" />
 
             <ImageView
                 android:id="@+id/imageView2"
@@ -66,6 +67,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="9.5"
+                android:textSize="@dimen/_14sdp"
                 android:textColor="@color/black"
                 app:layout_constraintBottom_toBottomOf="@+id/imageView2"
                 app:layout_constraintEnd_toEndOf="@+id/imageView2"

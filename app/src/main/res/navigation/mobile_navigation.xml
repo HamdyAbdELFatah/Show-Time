@@ -37,4 +37,9 @@
             android:name="playListType"
             app:argType="string" />
     </fragment>
+    <fragment
+        android:id="@+id/moviesDetails"
+        android:name="com.hamdy.showtime.MoviesDetails"
+        android:label="fragment_movies_details"
+        tools:layout="@layout/fragment_movies_details" />
 </navigation>
