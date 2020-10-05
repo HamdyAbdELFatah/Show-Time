@@ -12,6 +12,9 @@
         <action
             android:id="@+id/action_navigation_home_to_fragment_all_movies"
             app:destination="@id/fragment_all_movies" />
+        <action
+            android:id="@+id/action_navigation_home_to_moviesDetails"
+            app:destination="@id/moviesDetails" />
     </fragment>
 
     <fragment
@@ -36,10 +39,13 @@
         <argument
             android:name="playListType"
             app:argType="string" />
+        <action
+            android:id="@+id/action_fragment_all_movies_to_moviesDetails"
+            app:destination="@id/moviesDetails" />
     </fragment>
     <fragment
         android:id="@+id/moviesDetails"
-        android:name="com.hamdy.showtime.MoviesDetails"
+        android:name="com.hamdy.showtime.ui.ui.movies_details.ui.MoviesDetails"
         android:label="fragment_movies_details"
         tools:layout="@layout/fragment_movies_details" />
 </navigation>

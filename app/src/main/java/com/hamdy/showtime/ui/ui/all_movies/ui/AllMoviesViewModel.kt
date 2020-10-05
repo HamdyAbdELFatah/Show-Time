@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.hamdy.showtime.ui.ui.all_movies.repository.AllMoviesRepository
-import com.hamdy.showtime.ui.ui.home.model.PopularResultsItem
+import com.hamdy.showtime.ui.model.PopularResultsItem
 import kotlinx.coroutines.*
 
 class AllMoviesViewModel : ViewModel() {
@@ -14,9 +14,7 @@ class AllMoviesViewModel : ViewModel() {
     var listMovies = MutableLiveData<List<PopularResultsItem>>()
     var list = mutableListOf<PopularResultsItem>()
     var totalPages = MutableLiveData<Int>()
-    init {
-        Log.d(TAG, "Hamdy :${list.size} size ${listMovies.value?.size} ")
-    }
+
     fun getPopular() {
         viewModelScope.launch(Dispatchers.IO) {
             for (i in 1..totalPages.value!!) {

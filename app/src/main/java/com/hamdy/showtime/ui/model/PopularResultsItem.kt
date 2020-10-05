@@ -1,4 +1,4 @@
-package com.hamdy.showtime.ui.ui.home.model
+package com.hamdy.showtime.ui.model
 
 import com.google.gson.annotations.SerializedName
 

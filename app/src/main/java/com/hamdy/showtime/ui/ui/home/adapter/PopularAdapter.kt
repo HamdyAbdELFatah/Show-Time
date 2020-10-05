@@ -6,11 +6,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.ScaleAnimation
+import androidx.core.os.bundleOf
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.hamdy.showtime.R
 import com.hamdy.showtime.databinding.MoviesItemBinding
-import com.hamdy.showtime.ui.ui.home.model.PopularResultsItem
+import com.hamdy.showtime.ui.model.PopularResultsItem
 import com.hamdy.showtime.ui.util.ImageUrlBase
 import kotlin.random.Random
 
@@ -28,14 +31,23 @@ class PopularAdapter : RecyclerView.Adapter<PopularAdapter.Holder>() {
     }
     override fun onBindViewHolder(holder: Holder, position: Int) {
         val movie= movies?.get(position)
-        holder.moviesName.text=movie?.originalTitle
+        holder.moviesName.text=movie?.title
         //holder.companyName.text=movie?.
         holder.rateText.text=movie?.voteAverage.toString()
         holder.movieImage.load(ImageUrlBase + movie?.posterPath){
             crossfade(true)
             crossfade(500)
         }
-        setAnimation(holder.itemView, position);
+        setAnimation(holder.itemView, position)
+        holder.movieContainer.setOnClickListener {
+            val extras = FragmentNavigatorExtras(
+                    holder.movieImage to "imageView"
+            )
+            val bundle = bundleOf("posterPath" to movie?.posterPath)
+            bundle.putInt("id", movie?.id!!)
+            bundle.putString("backdropPath", movie.backdropPath)
+            it.findNavController().navigate(R.id.action_navigation_home_to_moviesDetails,bundle,null,extras)
+        }
 
     }
     override fun getItemCount(): Int {
@@ -43,6 +55,7 @@ class PopularAdapter : RecyclerView.Adapter<PopularAdapter.Holder>() {
             return movies!!.size
         return 0
     }
+
     private fun setAnimation(viewToAnimate: View, position: Int) {
         // If the bound view wasn't previously displayed on screen, it's animated
         if (position > lastPosition) {
@@ -61,6 +74,7 @@ class PopularAdapter : RecyclerView.Adapter<PopularAdapter.Holder>() {
             lastPosition = position
         }
     }
+
     fun setPopular(movies: List<PopularResultsItem>) {
         this.movies = movies
         notifyDataSetChanged()
@@ -68,6 +82,7 @@ class PopularAdapter : RecyclerView.Adapter<PopularAdapter.Holder>() {
 
     class Holder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val binding = MoviesItemBinding.bind(itemView)
+        val movieContainer = binding.movieContainer
         val movieImage = binding.movieImage
         //val companyName = binding.companyName
         val moviesName = binding.moviesName

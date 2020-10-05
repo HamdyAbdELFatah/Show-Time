@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_margin="@dimen/_4sdp"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/castImage"
+        android:layout_width="@dimen/_70sdp"
+        android:layout_height="@dimen/_110sdp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:srcCompat="@drawable/test2" />
+
+    <TextView
+        android:id="@+id/castCharacter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_10sdp"
+        app:layout_constraintEnd_toEndOf="@+id/castName"
+        app:layout_constraintStart_toStartOf="@+id/castName"
+        app:layout_constraintTop_toBottomOf="@+id/castName"
+        tools:text="Iron Man" />
+
+    <TextView
+        android:id="@+id/castName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Hamdy"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_10sdp"
+        app:layout_constraintEnd_toEndOf="@+id/castImage"
+        app:layout_constraintHorizontal_bias="0.507"
+        app:layout_constraintStart_toStartOf="@+id/castImage"
+        app:layout_constraintTop_toBottomOf="@+id/castImage" />
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -17,10 +17,7 @@ import androidx.recyclerview.widget.SnapHelper
 import com.hamdy.showtime.R
 import com.hamdy.showtime.databinding.FragmentHomeBinding
 import com.hamdy.showtime.ui.ui.home.adapter.PopularAdapter
-import com.hamdy.showtime.ui.ui.home.adapter.TopRatedAdapter
 import com.hamdy.showtime.ui.ui.home.adapter.TrendingAdapter
-import com.hamdy.showtime.ui.ui.home.adapter.UpComingAdapter
-import com.hamdy.showtime.ui.ui.home.model.PopularResultsItem
 import com.hamdy.showtime.ui.util.CenterZoomLayoutManager
 import kotlinx.android.synthetic.main.fragment_home.*
 
@@ -38,7 +35,7 @@ class HomeFragment : Fragment(), View.OnClickListener {
     override fun onActivityCreated(@Nullable savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         val helper: SnapHelper = LinearSnapHelper()
-        binding.trendingRecyclerview.layoutManager = CenterZoomLayoutManager(context, RecyclerView.HORIZONTAL, true)
+        binding.trendingRecyclerview.layoutManager = CenterZoomLayoutManager(context, RecyclerView.HORIZONTAL, false)
         val adapterTrending=TrendingAdapter()
         binding.trendingRecyclerview.adapter = adapterTrending
         helper.attachToRecyclerView(trendingRecyclerview)
@@ -47,21 +44,21 @@ class HomeFragment : Fragment(), View.OnClickListener {
             adapterTrending.setTrends(it)
         })
 
-        binding.popularRecyclerView.layoutManager=LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,true)
+        binding.popularRecyclerView.layoutManager=LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false)
         val adapterPopular=PopularAdapter()
         binding.popularRecyclerView.adapter=adapterPopular
         homeViewModel.listPopular.observe(viewLifecycleOwner, Observer {
             adapterPopular.setPopular(it)
         })
 
-        binding.hightRateRecyclerView.layoutManager=LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,true)
+        binding.hightRateRecyclerView.layoutManager=LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false)
         val topRatedAdapter=PopularAdapter()
         binding.hightRateRecyclerView.adapter=topRatedAdapter
         homeViewModel.listTopRated.observe(viewLifecycleOwner, Observer {
             topRatedAdapter.setPopular(it)
         })
 
-        binding.upcomingRecyclerView.layoutManager=LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,true)
+        binding.upcomingRecyclerView.layoutManager=LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false)
         val upComingAdapter=PopularAdapter()
         binding.upcomingRecyclerView.adapter=upComingAdapter
         homeViewModel.listUpComing.observe(viewLifecycleOwner, Observer {
@@ -78,7 +75,7 @@ class HomeFragment : Fragment(), View.OnClickListener {
             R.id.seeAllPopular->bundle = bundleOf("type" to "popular")
             R.id.seeAllTopRated->bundle = bundleOf("type" to "topRate")
         }
-        p0?.findNavController()?.navigate(R.id.action_navigation_home_to_fragment_all_movies,bundle)
+        p0?.findNavController()?.navigate(R.id.action_navigation_home_to_fragment_all_movies,bundle,null,null)
 
     }
 

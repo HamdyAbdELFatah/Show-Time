@@ -1,10 +1,8 @@
 package com.hamdy.showtime.ui.ui.home.repository
 
-import android.util.Log
-import androidx.lifecycle.MutableLiveData
 import com.hamdy.showtime.ui.network.MoviesService
 import com.hamdy.showtime.ui.network.RetrofitClient
-import com.hamdy.showtime.ui.ui.home.model.PopularResultsItem
+import com.hamdy.showtime.ui.model.PopularResultsItem
 import com.hamdy.showtime.ui.util.API_KEY
 
 class HomeRepository {

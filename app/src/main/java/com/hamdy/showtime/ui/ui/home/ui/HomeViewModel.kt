@@ -3,7 +3,7 @@ package com.hamdy.showtime.ui.ui.home.ui
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.hamdy.showtime.ui.ui.home.model.PopularResultsItem
+import com.hamdy.showtime.ui.model.PopularResultsItem
 import com.hamdy.showtime.ui.ui.home.repository.HomeRepository
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Dispatchers.Main

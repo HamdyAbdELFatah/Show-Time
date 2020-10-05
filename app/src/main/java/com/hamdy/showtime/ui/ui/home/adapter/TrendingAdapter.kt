@@ -10,7 +10,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.hamdy.showtime.R
-import com.hamdy.showtime.ui.ui.home.model.PopularResultsItem
+import com.hamdy.showtime.ui.model.PopularResultsItem
 import com.hamdy.showtime.ui.util.ImageUrlBase
 
 
