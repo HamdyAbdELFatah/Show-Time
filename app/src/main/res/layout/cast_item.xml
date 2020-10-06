@@ -16,9 +16,9 @@
 
     <TextView
         android:id="@+id/castCharacter"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:textColor="@color/white"
+        android:gravity="center"
         android:textSize="@dimen/_10sdp"
         app:layout_constraintEnd_toEndOf="@+id/castName"
         app:layout_constraintStart_toStartOf="@+id/castName"
@@ -27,8 +27,9 @@
 
     <TextView
         android:id="@+id/castName"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:gravity="center"
         android:text="Hamdy"
         android:textColor="@color/white"
         android:textSize="@dimen/_10sdp"

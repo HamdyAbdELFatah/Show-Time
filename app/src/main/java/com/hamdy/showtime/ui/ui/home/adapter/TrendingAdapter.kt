@@ -9,6 +9,8 @@ import android.widget.ImageView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
+import coil.size.Scale
+import coil.transform.CircleCropTransformation
 import com.hamdy.showtime.R
 import com.hamdy.showtime.ui.model.PopularResultsItem
 import com.hamdy.showtime.ui.util.ImageUrlBase
@@ -34,6 +36,7 @@ class TrendingAdapter : RecyclerView.Adapter<TrendingAdapter.Holder>() {
         //layoutParams.height = (width / 0.9).toInt()
         holder.trendContainer.layoutParams = layoutParams
         holder.imageMovieTrend.load(ImageUrlBase+movie?.backdropPath)
+
     }
     override fun getItemCount(): Int {
         if(movies!=null)

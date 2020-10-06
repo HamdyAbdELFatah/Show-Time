@@ -3,18 +3,18 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    tools:context=".ui.ui.movies_details.ui.MoviesDetails">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorPrimary"
-        tools:context=".ui.ui.movies_details.ui.MoviesDetails">
-
+        android:background="@color/colorPrimary">
         <ImageView
             android:id="@+id/moviesBackGroundImage"
             android:layout_width="0dp"
-            android:layout_height="@dimen/_275sdp"
+            android:layout_height="@dimen/_260sdp"
 
             android:scaleType="centerCrop"
             android:src="@drawable/test"
@@ -49,12 +49,13 @@
 
             <TextView
                 android:id="@+id/movieName"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:text="TextView"
                 android:textColor="@color/white"
                 android:textSize="@dimen/_14sdp"
+                app:layout_constraintEnd_toStartOf="@+id/favoriteIcon"
                 app:layout_constraintStart_toEndOf="@+id/moviePosterImage"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -93,9 +94,10 @@
 
             <TextView
                 android:id="@+id/movieCategory"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:textColor="@color/white"
+                android:textSize="@dimen/_11sdp"
                 app:layout_constraintBottom_toBottomOf="@+id/rateText"
                 app:layout_constraintEnd_toStartOf="@+id/rateText"
                 app:layout_constraintHorizontal_bias="0.0"
@@ -120,8 +122,10 @@
             android:id="@+id/overviewText"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_8sdp"
+            android:layout_marginTop="8dp"
+            android:maxLines="3"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/textView8"
             app:layout_constraintTop_toBottomOf="@+id/textView8"
             tools:text="A professional thief with $40 million in debt and his family's life on the line must commit one final heist - rob a futuristic airborne casino filled with the world's most dangerous criminals." />
@@ -155,6 +159,18 @@
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/seeMoreImage"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/background_white"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="@+id/overviewText"
+            app:layout_constraintEnd_toEndOf="@+id/overviewText"
+            app:layout_constraintStart_toStartOf="@+id/overviewText"
+            app:srcCompat="@drawable/ic_arrow_down"
+            tools:ignore="VectorDrawableCompat" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

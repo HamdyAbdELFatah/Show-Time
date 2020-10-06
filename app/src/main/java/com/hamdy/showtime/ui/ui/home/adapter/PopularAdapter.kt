@@ -38,7 +38,7 @@ class PopularAdapter : RecyclerView.Adapter<PopularAdapter.Holder>() {
             crossfade(true)
             crossfade(500)
         }
-        setAnimation(holder.itemView, position)
+//        setAnimation(holder.itemView, position)
         holder.movieContainer.setOnClickListener {
             val extras = FragmentNavigatorExtras(
                     holder.movieImage to "imageView"

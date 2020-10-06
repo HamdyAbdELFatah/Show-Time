@@ -11,8 +11,10 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.transition.ChangeBounds
 import androidx.transition.TransitionInflater
 import coil.load
+import com.hamdy.showtime.R
 import com.hamdy.showtime.databinding.FragmentMoviesDetailsBinding
 import com.hamdy.showtime.ui.ui.movies_details.adapter.CastAdapter
 import com.hamdy.showtime.ui.util.ImageUrlBase
@@ -66,21 +68,40 @@ class MoviesDetails : Fragment() {
         moviesDetailsViewModel.movieDetails.observe(viewLifecycleOwner, Observer {
             binding.movieName.text = it?.title
             binding.overviewText.text = it?.overview
+            var isTextViewClicked = true
+            if (binding.overviewText.lineCount > 3)
+                binding.seeMoreImage.visibility = View.VISIBLE
+            binding.seeMoreImage.setOnClickListener {
+                isTextViewClicked = if(isTextViewClicked){
+                    binding.overviewText.maxLines = Integer.MAX_VALUE
+                    binding.seeMoreImage.setImageResource(R.drawable.ic_arrow_up)
+                    false
+                } else {
+                    binding.overviewText.maxLines = 3
+                    binding.seeMoreImage.setImageResource(R.drawable.ic_arrow_down)
+                    true
+                }
+            }
+
             val genres = it?.genres
             var temp = ""
             for (i in genres!!) {
                 temp += if (i != genres.last())
                     "${i?.name} / "
                 else
-                    "${i?.name}"
+                       "${i?.name}"
             }
             binding.movieCategory.text = temp
             val time = it.runtime!!
             val hours: Int = time / 60
             val minutes: Int = time % 60
-            binding.movieTime.text="$hours H $minutes Min"
-            binding.rateText.text=it.voteAverage.toString()
+            binding.movieTime.text = "$hours H $minutes Min"
+            binding.rateText.text = it.voteAverage.toString()
         })
     }
 
+    override fun onDetach() {
+        super.onDetach()
+        activity?.window?.clearFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
+    }
 }
