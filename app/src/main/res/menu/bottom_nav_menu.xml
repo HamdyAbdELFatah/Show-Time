@@ -7,9 +7,9 @@
         android:title="@string/title_home" />
 
     <item
-        android:id="@+id/navigation_tv"
-        android:icon="@drawable/ic_tv"
-        android:title="@string/title_tv" />
+        android:id="@+id/navigation_person"
+        android:icon="@drawable/ic_user"
+        android:title="@string/person" />
 
     <item
         android:id="@+id/navigation_favorite"
@@ -18,7 +18,7 @@
 
     <item
         android:id="@+id/navigation_profile"
-        android:icon="@drawable/ic_user"
+        android:icon="@drawable/ic_settings"
         android:title="@string/title_profile" />
 
 </menu>

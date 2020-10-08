@@ -1,11 +1,15 @@
 package com.hamdy.showtime.ui.ui.all_movies.ui
 
+import android.app.Dialog
 import android.content.Context
+import android.content.res.ColorStateList
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -19,6 +23,7 @@ class AllMoviesFragment : Fragment() {
     private lateinit var allMoviesViewModel: AllMoviesViewModel
     private lateinit var binding: FragmentAllMoviesBinding
     private lateinit var type: String
+    lateinit var dialog: Dialog
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentAllMoviesBinding.inflate(inflater, container, false)
         return binding.root
@@ -29,19 +34,25 @@ class AllMoviesFragment : Fragment() {
         allMoviesViewModel =
             ViewModelProvider(this).get(AllMoviesViewModel::class.java)
         type= arguments?.get("type").toString()
-        allMoviesViewModel.myStart(type, context!!)
+        createDialog()
+        allMoviesViewModel.myStart(type,dialog)
 
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         Log.d(TAG, "onActivityCreated: Called")
-
         binding.allMoviesRecyclerView.layoutManager=GridLayoutManager(context,2)
         val adapter=PopularAdapter()
         binding.allMoviesRecyclerView.adapter=adapter
         allMoviesViewModel.listMovies.observe(viewLifecycleOwner, Observer {
             adapter.setPopular(it, R.id.action_fragment_all_movies_to_moviesDetails)
         })
+    }
+    private fun createDialog(){
+        dialog =  Dialog(requireContext())
+        dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+        dialog.setContentView(R.layout.loading_bar)
+        dialog.show()
     }
 }

@@ -11,14 +11,18 @@
         tools:layout="@layout/fragment_home" >
         <action
             android:id="@+id/action_navigation_home_to_fragment_all_movies"
-            app:destination="@id/fragment_all_movies" />
+            app:destination="@id/fragment_all_movies"
+            app:enterAnim="@anim/from_left"
+            app:exitAnim="@anim/to_right"
+            app:popEnterAnim="@anim/from_right"
+            app:popExitAnim="@anim/to_left" />
         <action
             android:id="@+id/action_navigation_home_to_moviesDetails"
             app:destination="@id/moviesDetails" />
     </fragment>
 
     <fragment
-        android:id="@+id/navigation_tv"
+        android:id="@+id/navigation_person"
         android:name="com.hamdy.showtime.ui.ui.tv.TvFragment"
         tools:layout="@layout/fragment_tv" />
 

@@ -16,13 +16,11 @@ class AllMoviesViewModel : ViewModel() {
     private val allMoviesRepository= AllMoviesRepository()
     var listMovies = MutableLiveData<List<PopularResultsItem>>()
     var list = mutableListOf<PopularResultsItem>()
-    var totalPages = MutableLiveData<Int>()
+//    var totalPages = MutableLiveData<Int>()
     lateinit var dialog: Dialog
-    fun myStart(type:String,context:Context){
-        dialog =  Dialog(context)
-        dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
-        dialog.setContentView(R.layout.loading_bar)
-        dialog.show()
+
+    fun myStart(type:String,dialog:Dialog){
+        this.dialog=dialog
         when (type) {
             "popular" -> {
                 getPopular()
@@ -35,13 +33,15 @@ class AllMoviesViewModel : ViewModel() {
             }
         }
     }
-    fun getPopular() {
+
+    private fun getPopular() {
         viewModelScope.launch(Dispatchers.Unconfined) {
-            for (i in 1..500) {
+            val response1 = allMoviesRepository.getPopular(1)
+            list.addAll(response1?.results!!)
+            for (i in 2..response1.totalPages!!) {
                 val response = allMoviesRepository.getPopular(i)
                 list.addAll(response?.results!!)
-                Log.d(TAG, "getPopular: ${list.size}")
-                if(list.size%1000==0){
+                if(list.size%500==0){
                     withContext(Dispatchers.Main) {
                         listMovies.postValue(list)
                         dialog.cancel()
@@ -53,66 +53,45 @@ class AllMoviesViewModel : ViewModel() {
             }
         }
     }
-    fun getTopRated(){
+
+    private fun getTopRated(){
         viewModelScope.launch(Dispatchers.IO) {
-            for (i in 1..totalPages.value!!) {
+            val response1 = allMoviesRepository.getTopRated(1)
+            list.addAll(response1?.results!!)
+            for (i in 2..response1.totalPages!!) {
                 val response = allMoviesRepository.getTopRated(i)
-                withContext(Dispatchers.Main) {
-                    list.addAll(response?.results!!)
-                    listMovies.postValue(list)
+                list.addAll(response?.results!!)
+                if(list.size%200==0){
+                    withContext(Dispatchers.Main) {
+                        listMovies.postValue(list)
+                        dialog.cancel()
+                    }
                 }
+            }
+            withContext(Dispatchers.Main) {
+                listMovies.postValue(list)
             }
          }
      }
-     fun getUpComing() {
+
+     private fun getUpComing() {
           viewModelScope.launch(Dispatchers.IO) {
-              for (i in 1..totalPages.value!!) {
+              val response1 = allMoviesRepository.getUpComing(1)
+              list.addAll(response1?.results!!)
+              for (i in 2..response1.totalPages!!) {
                   val response = allMoviesRepository.getUpComing(i)
-                  withContext(Dispatchers.Main) {
-                      list.addAll(response?.results!!)
-                      listMovies.postValue(list)
+                  list.addAll(response?.results!!)
+                  if (list.size % 500 == 0) {
+                      withContext(Dispatchers.Main) {
+                          listMovies.postValue(list)
+                          dialog.cancel()
+                      }
                   }
+              }
+              withContext(Dispatchers.Main) {
+                  listMovies.postValue(list)
               }
          }
      }
-//    fun getTrending() {
-//        viewModelScope.launch(Dispatchers.IO) {
-//            val response=allMoviesRepository.getTrending(1)
-//            withContext(Dispatchers.Main){
-//                list.addAll(response?.results!!)
-//               listMovies.postValue(list)
-//            }
-//        }
-//    }
-//
-//    fun getPopularTotalResult() {
-//        val job=viewModelScope.launch(Dispatchers.IO) {
-//            val response = allMoviesRepository.getPopular(1)
-//            withContext(Dispatchers.Main) {
-//                Log.d(TAG, "getPopularTotalResult: pages ${response?.totalPages} results ${response?.totalResults}")
-//                totalPages.postValue(response?.totalPages)
-//            }
-//        }
-//        if(job.isCompleted)
-//            Log.d(TAG, "getPopularTotalResult: Completd $totalPages")
-//    }
-//    fun getTopRatedTotalResult() {
-//        viewModelScope.launch(Dispatchers.IO) {
-//            val response = allMoviesRepository.getTopRated(1)
-//            withContext(Dispatchers.Main) {
-//                Log.d(TAG, "getTopRatedTotalResult: pages ${response?.totalPages} results ${response?.totalResults}")
-//                totalPages.postValue(response?.totalPages)
-//            }
-//        }
-//    }
-//    fun getUpComingTotalResult() {
-//        viewModelScope.launch(Dispatchers.IO) {
-//            val response = allMoviesRepository.getUpComing(1)
-//            withContext(Dispatchers.Main) {
-//                Log.d(TAG, "getUpComingTotalResult: pages ${response?.totalPages} results ${response?.totalResults}")
-//                totalPages.postValue(response?.totalPages)
-//            }
-//        }
-//    }
 
 }

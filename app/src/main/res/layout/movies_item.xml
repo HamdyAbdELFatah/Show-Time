@@ -11,7 +11,7 @@
 
     <androidx.cardview.widget.CardView
         android:layout_width="@dimen/_155sdp"
-        android:layout_height="@dimen/_290sdp"
+        android:layout_height="wrap_content"
         app:cardBackgroundColor="@color/colorPrimary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -22,8 +22,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/backgroundImage">
+            android:layout_height="match_parent">
 
             <ImageView
                 android:id="@+id/movieImage"
@@ -40,9 +39,13 @@
                 android:id="@+id/moviesName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:maxLines="3"
                 android:text="TextView"
                 android:textColor="@color/white"
                 android:textSize="@dimen/_14sdp"
+                android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/movieImage"
                 app:layout_constraintTop_toBottomOf="@+id/movieImage" />

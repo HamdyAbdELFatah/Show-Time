@@ -51,11 +51,13 @@
                 android:layout_width="@dimen/_205sdp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_4sdp"
+                android:maxLines="2"
                 android:textColor="@color/white"
                 android:textSize="@dimen/_14sdp"
                 app:layout_constraintEnd_toStartOf="@+id/favoriteIcon"
                 app:layout_constraintStart_toEndOf="@+id/moviePosterImage"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Hamdy" />
 
             <TextView
                 android:id="@+id/movieTime"
@@ -80,7 +82,7 @@
                 android:id="@+id/rateText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
+                android:layout_marginBottom="@dimen/_8sdp"
                 android:drawableStart="@drawable/ic_star"
                 android:drawableLeft="@drawable/ic_star"
                 android:drawablePadding="@dimen/_4sdp"
@@ -94,6 +96,7 @@
                 android:id="@+id/movieCategory"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:maxLines="3"
                 android:textColor="@color/white"
                 android:textSize="@dimen/_11sdp"
                 app:layout_constraintBottom_toBottomOf="@+id/rateText"
