@@ -36,11 +36,10 @@
 
             <ImageView
                 android:id="@+id/moviePosterImage"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:transitionName="imageView"
+                android:layout_width="@dimen/_80sdp"
+                android:layout_height="@dimen/_100sdp"
+                android:adjustViewBounds="false"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintDimensionRatio="1:1.2"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:srcCompat="@drawable/test">
@@ -49,10 +48,9 @@
 
             <TextView
                 android:id="@+id/movieName"
-                android:layout_width="0dp"
+                android:layout_width="@dimen/_205sdp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="TextView"
+                android:layout_marginTop="@dimen/_4sdp"
                 android:textColor="@color/white"
                 android:textSize="@dimen/_14sdp"
                 app:layout_constraintEnd_toStartOf="@+id/favoriteIcon"

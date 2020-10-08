@@ -7,7 +7,9 @@ import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.ScaleAnimation
 import androidx.core.os.bundleOf
+import androidx.core.view.ViewCompat
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.FragmentNavigator
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
@@ -20,6 +22,8 @@ import kotlin.random.Random
 
 class PopularAdapter : RecyclerView.Adapter<PopularAdapter.Holder>() {
     private var movies: List<PopularResultsItem>? = null
+    private var action: Int? = null
+    private var type: String? = null
     var context: Context? = null
     private var lastPosition = -1
 
@@ -38,15 +42,20 @@ class PopularAdapter : RecyclerView.Adapter<PopularAdapter.Holder>() {
             crossfade(true)
             crossfade(500)
         }
-//        setAnimation(holder.itemView, position)
+//        ViewCompat.setTransitionName(holder.movieImage, "${type}Image$position")
+//        ViewCompat.setTransitionName(holder.moviesName, "${type}Text$position")
+
+        setAnimation(holder.itemView, position)
         holder.movieContainer.setOnClickListener {
-            val extras = FragmentNavigatorExtras(
-                    holder.movieImage to "imageView"
-            )
+//            val extras = FragmentNavigator.Extras.Builder()
+//                .addSharedElement(holder.movieImage, ViewCompat.getTransitionName(holder.movieImage)!!)
+//                .addSharedElement(holder.moviesName, ViewCompat.getTransitionName(holder.moviesName)!!)
+//                .build()
             val bundle = bundleOf("posterPath" to movie?.posterPath)
             bundle.putInt("id", movie?.id!!)
-            bundle.putString("backdropPath", movie.backdropPath)
-            it.findNavController().navigate(R.id.action_navigation_home_to_moviesDetails,bundle,null,extras)
+//            bundle.putInt("position", position)
+//            bundle.putString("type", type)
+            it.findNavController().navigate(action!!,bundle,null,null)
         }
 
     }
@@ -75,10 +84,17 @@ class PopularAdapter : RecyclerView.Adapter<PopularAdapter.Holder>() {
         }
     }
 
-    fun setPopular(movies: List<PopularResultsItem>) {
+    fun setPopular(movies: List<PopularResultsItem>,action:Int) {
         this.movies = movies
+        this.action = action
         notifyDataSetChanged()
     }
+    /*fun setPopular(movies: List<PopularResultsItem>,action:Int,type:String) {
+        this.movies = movies
+        this.action = action
+        this.type = type
+        notifyDataSetChanged()
+    }*/
 
     class Holder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val binding = MoviesItemBinding.bind(itemView)

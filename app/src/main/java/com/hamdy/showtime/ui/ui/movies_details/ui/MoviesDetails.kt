@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import androidx.annotation.RequiresApi
+import androidx.core.view.ViewCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -31,9 +32,10 @@ class MoviesDetails : Fragment() {
             WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
             WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
         )
-        val transition = TransitionInflater.from(context).inflateTransition(android.R.transition.move)
-        sharedElementEnterTransition = transition
-        sharedElementReturnTransition = transition
+
+//        val transition = TransitionInflater.from(context).inflateTransition(android.R.transition.move)
+//        sharedElementEnterTransition = transition
+//        sharedElementReturnTransition = transition
     }
 
     override fun onCreateView(
@@ -51,6 +53,8 @@ class MoviesDetails : Fragment() {
         super.onActivityCreated(savedInstanceState)
         val posterPath= arguments?.get("posterPath").toString()
         val id= arguments?.getInt("id")!!
+//        val position= arguments?.getInt("position")!!
+//        val type= arguments?.getString("type")!!
         moviesDetailsViewModel.getCastMovieList(id)
         moviesDetailsViewModel.getMoviesDetails(id)
         binding.moviePosterImage.load(ImageUrlBase + posterPath)
@@ -98,6 +102,9 @@ class MoviesDetails : Fragment() {
             binding.movieTime.text = "$hours H $minutes Min"
             binding.rateText.text = it.voteAverage.toString()
         })
+//        ViewCompat.setTransitionName(binding.moviePosterImage, "${type}Image$position")
+//        ViewCompat.setTransitionName(binding.movieName, "${type}Text$position")
+
     }
 
     override fun onDetach() {

@@ -48,21 +48,21 @@ class HomeFragment : Fragment(), View.OnClickListener {
         val adapterPopular=PopularAdapter()
         binding.popularRecyclerView.adapter=adapterPopular
         homeViewModel.listPopular.observe(viewLifecycleOwner, Observer {
-            adapterPopular.setPopular(it)
+            adapterPopular.setPopular(it,R.id.action_navigation_home_to_moviesDetails)
         })
 
         binding.hightRateRecyclerView.layoutManager=LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false)
         val topRatedAdapter=PopularAdapter()
         binding.hightRateRecyclerView.adapter=topRatedAdapter
         homeViewModel.listTopRated.observe(viewLifecycleOwner, Observer {
-            topRatedAdapter.setPopular(it)
+            topRatedAdapter.setPopular(it,R.id.action_navigation_home_to_moviesDetails)
         })
 
         binding.upcomingRecyclerView.layoutManager=LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false)
         val upComingAdapter=PopularAdapter()
         binding.upcomingRecyclerView.adapter=upComingAdapter
         homeViewModel.listUpComing.observe(viewLifecycleOwner, Observer {
-            upComingAdapter.setPopular(it)
+            upComingAdapter.setPopular(it,R.id.action_navigation_home_to_moviesDetails)
         })
         binding.seeAllPopular.setOnClickListener(this)
         binding.seeAllTopRated.setOnClickListener(this)
