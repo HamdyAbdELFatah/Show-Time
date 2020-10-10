@@ -29,7 +29,7 @@ class CastAdapter : RecyclerView.Adapter<CastAdapter.Holder>() {
         //holder.companyName.text=movie?.
         holder.castName.text=movie?.name
         if(movie?.profilePath!=null)
-            holder.castImage.load(ImageUrlBase+movie?.profilePath){
+            holder.castImage.load(ImageUrlBase+ movie.profilePath){
                 crossfade(true)
                 crossfade(500)
                 transformations(CircleCropTransformation())
