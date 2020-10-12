@@ -23,7 +23,7 @@
 
     <fragment
         android:id="@+id/navigation_person"
-        android:name="com.hamdy.showtime.ui.ui.person_details.PersonDetailsFragment"
+        android:name="com.hamdy.showtime.ui.ui.person_details.ui.PersonDetailsFragment"
         tools:layout="@layout/person_details_fragment" />
 
     <fragment

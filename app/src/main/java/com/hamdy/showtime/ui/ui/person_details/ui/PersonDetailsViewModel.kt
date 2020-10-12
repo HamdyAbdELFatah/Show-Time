@@ -1,4 +1,4 @@
-package com.hamdy.showtime.ui.ui.person_details
+package com.hamdy.showtime.ui.ui.person_details.ui
 
 import androidx.lifecycle.ViewModel
 
