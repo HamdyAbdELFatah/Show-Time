@@ -1,4 +1,4 @@
-package com.hamdy.showtime.ui.ui.all_movies.repository
+package com.hamdy.showtime.ui.ui.movies.repository
 
 import com.hamdy.showtime.ui.network.MoviesService
 import com.hamdy.showtime.ui.network.RetrofitClient

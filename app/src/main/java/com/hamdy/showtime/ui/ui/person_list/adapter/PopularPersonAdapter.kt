@@ -1,4 +1,4 @@
-package com.hamdy.showtime.ui.ui.person_details.adapter
+package com.hamdy.showtime.ui.ui.person_list.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -7,38 +7,35 @@ import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.ScaleAnimation
 import androidx.core.os.bundleOf
-import androidx.core.view.ViewCompat
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.FragmentNavigator
-import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
+import com.google.gson.Gson
 import com.hamdy.showtime.R
 import com.hamdy.showtime.databinding.MoviesItemBinding
-import com.hamdy.showtime.ui.model.KnownForItem
-import com.hamdy.showtime.ui.model.PopularResultsItem
+import com.hamdy.showtime.databinding.PersonsItemBinding
+import com.hamdy.showtime.ui.model.PersonsResultsItem
 import com.hamdy.showtime.ui.util.ImageUrlBase
 import kotlin.random.Random
 
 
-class KnownMoviesAdapter : RecyclerView.Adapter<KnownMoviesAdapter.Holder>() {
-    private var movies: List<KnownForItem>? = null
-    private var type: String? = null
+class PopularPersonAdapter : RecyclerView.Adapter<PopularPersonAdapter.Holder>() {
+    private var movies: List<PersonsResultsItem>? = null
+    private var action: Int? = null
     var context: Context? = null
     private var lastPosition = -1
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
         context=parent.context
         return Holder(
-            LayoutInflater.from(context).inflate(R.layout.movies_small_item, parent, false)
+            LayoutInflater.from(context).inflate(R.layout.persons_item, parent, false)
         )
     }
     override fun onBindViewHolder(holder: Holder, position: Int) {
-        val movie= movies?.get(position)
-        holder.moviesName.text=movie?.title
+        val person= movies?.get(position)
+        holder.moviesName.text=person?.name
         //holder.companyName.text=movie?.
-        holder.rateText.text=movie?.voteAverage.toString()
-        holder.movieImage.load(ImageUrlBase + movie?.posterPath){
+        holder.movieImage.load(ImageUrlBase + person?.profilePath){
             crossfade(true)
             crossfade(500)
         }
@@ -51,11 +48,12 @@ class KnownMoviesAdapter : RecyclerView.Adapter<KnownMoviesAdapter.Holder>() {
 //                .addSharedElement(holder.movieImage, ViewCompat.getTransitionName(holder.movieImage)!!)
 //                .addSharedElement(holder.moviesName, ViewCompat.getTransitionName(holder.moviesName)!!)
 //                .build()
-            val bundle = bundleOf("posterPath" to movie?.posterPath)
-            bundle.putInt("id", movie?.id!!)
+            val bundle = bundleOf("person" to Gson().toJson(person?.knownFor))
+            bundle.putString("posterPath", person?.profilePath!!)
+            bundle.putInt("id", person.id!!)
 //            bundle.putInt("position", position)
 //            bundle.putString("type", type)
-            it.findNavController().navigate(R.id.action_navigation_person_to_moviesDetails,bundle,null,null)
+            it.findNavController().navigate(R.id.action_personListFragment_to_navigation_person,bundle,null,null)
         }
 
     }
@@ -84,7 +82,7 @@ class KnownMoviesAdapter : RecyclerView.Adapter<KnownMoviesAdapter.Holder>() {
         }
     }
 
-    fun setMovies(movies: List<KnownForItem>) {
+    fun setPopular(movies: List<PersonsResultsItem>) {
         this.movies = movies
         notifyDataSetChanged()
     }
@@ -96,12 +94,10 @@ class KnownMoviesAdapter : RecyclerView.Adapter<KnownMoviesAdapter.Holder>() {
     }*/
 
     class Holder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val binding = MoviesItemBinding.bind(itemView)
-        val movieContainer = binding.movieContainer
-        val movieImage = binding.movieImage
+        private val binding = PersonsItemBinding.bind(itemView)
+        val movieContainer = binding.personContainer
+        val movieImage = binding.personImage
         //val companyName = binding.companyName
-        val moviesName = binding.moviesName
-        val rateText = binding.rateText
-
+        val moviesName = binding.personName
     }
 }

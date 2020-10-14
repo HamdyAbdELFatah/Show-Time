@@ -1,5 +1,6 @@
 package com.hamdy.showtime.ui.ui.person_details.ui
 
+import android.app.Dialog
 import android.content.res.Resources
 import android.os.Build
 import android.os.Bundle
@@ -9,14 +10,17 @@ import androidx.annotation.RequiresApi
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.google.android.material.appbar.AppBarLayout
+import com.google.gson.Gson
 import com.hamdy.showtime.R
 import com.hamdy.showtime.databinding.PersonDetailsFragmentBinding
-import com.hamdy.showtime.ui.ui.home.adapter.PopularAdapter
+import com.hamdy.showtime.ui.model.KnownForItem
+import com.hamdy.showtime.ui.model.PersonsResultsItem
 import com.hamdy.showtime.ui.ui.person_details.adapter.KnownMoviesAdapter
+import com.hamdy.showtime.ui.ui.person_details.adapter.PersonPhotosAdapter
+import com.hamdy.showtime.ui.util.ImageUrlBase
+import org.json.JSONObject
 import kotlin.math.abs
 
 
@@ -26,29 +30,64 @@ class PersonDetailsFragment : Fragment(), AppBarLayout.OnOffsetChangedListener {
     private  val TAG = "PersonDetailsFragment"
     private var castNameTextSize =0f
     private var castNickTextSize =0f
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        viewModel =  ViewModelProvider(this).get(PersonDetailsViewModel::class.java)
+        val personId=arguments?.getInt("id")
+        viewModel.getPersonDetails(personId!!)
+        viewModel.getPersonImage(personId)
+
+    }
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = PersonDetailsFragmentBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel =  ViewModelProvider(this).get(PersonDetailsViewModel::class.java)
-        binding.appBarImage.load(R.drawable.test4)
+        val posterPath=arguments?.getString("posterPath")
+        val person = Gson().fromJson(arguments?.getString("person"), Array<KnownForItem>::class.java)
+        binding.appBarImage.load(ImageUrlBase + posterPath)
         binding.appBarImage.requestLayout()
         binding.viewDark.requestLayout()
-        castNameTextSize=binding.castName.textSize
-        castNickTextSize=binding.castNickName.textSize
+
+        castNameTextSize = binding.castName.textSize
+        castNickTextSize = binding.castNickName.textSize
+
         binding.appbar.addOnOffsetChangedListener(this)
-//        binding.toolbar.inflateMenu(R.menu.favorite_menu);
-        val knownMoviesAdapter= KnownMoviesAdapter()
-        binding.knownRecyclerView.adapter=knownMoviesAdapter
+        val knownMoviesAdapter = KnownMoviesAdapter()
+        knownMoviesAdapter.setMovies(person.toList())
+        binding.knownRecyclerView.adapter = knownMoviesAdapter
+        val container =binding.bottomSheetContainer
+        val personPhotosAdapter = PersonPhotosAdapter()
+        container.photoRecyclerView.adapter = personPhotosAdapter
+        viewModel.personDetails.observe(viewLifecycleOwner , {
+            container.overviewText.text=it.biography
+            var isTextViewClicked = true
+            if (container.overviewText.lineCount > 4){
+                container.seeMoreImage.visibility = View.VISIBLE
+            }
+            container.seeMoreImage.setOnClickListener {
+                isTextViewClicked = if(isTextViewClicked){
+                    container.overviewText.maxLines = Integer.MAX_VALUE
+                    container.seeMoreImage.setImageResource(R.drawable.ic_arrow_up)
+                    false
+                } else {
+                    container.overviewText.maxLines = 3
+                    container.seeMoreImage.setImageResource(R.drawable.ic_arrow_down)
+                    true
+                }
+            }
+            container.bornDate.text=it.birthday
+            container.bornPlace.text=it.placeOfBirth
+            val name=it.name?.split(" ")
+            binding.castName.text= name?.get(0) ?: ""
+            binding.castNickName.text= name?.get(1) ?: ""
 
-
+        })
+        viewModel.listPersons.observe(viewLifecycleOwner , {
+            personPhotosAdapter.setPerson(it)
+        })
     }
 
 
@@ -136,5 +175,4 @@ class PersonDetailsFragment : Fragment(), AppBarLayout.OnOffsetChangedListener {
 
 
     }
-
 }

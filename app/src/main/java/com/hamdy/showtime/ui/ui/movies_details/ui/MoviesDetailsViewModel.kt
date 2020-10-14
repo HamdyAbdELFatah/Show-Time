@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.hamdy.showtime.ui.model.CastItem
 import com.hamdy.showtime.ui.model.MoviesDetailsResponse
 import com.hamdy.showtime.ui.ui.movies_details.repository.MoviesDetailsRepository
+import com.hamdy.showtime.ui.ui.person_details.repository.PersonDetailsRepository
 import kotlinx.coroutines.*
 
 class MoviesDetailsViewModel : ViewModel() {

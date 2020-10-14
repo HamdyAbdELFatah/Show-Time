@@ -6,10 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.hamdy.showtime.R
-import com.hamdy.showtime.ui.ui.all_movies.ui.AllMoviesViewModel
+import com.hamdy.showtime.ui.ui.movies.ui.AllMoviesViewModel
 
 class FavoriteFragment : Fragment() {
 

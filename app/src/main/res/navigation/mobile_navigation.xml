@@ -24,7 +24,11 @@
     <fragment
         android:id="@+id/navigation_person"
         android:name="com.hamdy.showtime.ui.ui.person_details.ui.PersonDetailsFragment"
-        tools:layout="@layout/person_details_fragment" />
+        tools:layout="@layout/person_details_fragment" >
+        <action
+            android:id="@+id/action_navigation_person_to_moviesDetails"
+            app:destination="@id/moviesDetails" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_profile"
@@ -37,7 +41,7 @@
         tools:layout="@layout/fragment_favorite" />
     <fragment
         android:id="@+id/fragment_all_movies"
-        android:name="com.hamdy.showtime.ui.ui.all_movies.ui.AllMoviesFragment"
+        android:name="com.hamdy.showtime.ui.ui.movies.ui.AllMoviesFragment"
         android:label="fragment_all_movies"
         tools:layout="@layout/fragment_all_movies" >
         <argument
@@ -51,5 +55,18 @@
         android:id="@+id/moviesDetails"
         android:name="com.hamdy.showtime.ui.ui.movies_details.ui.MoviesDetails"
         android:label="fragment_movies_details"
-        tools:layout="@layout/fragment_movies_details" />
+        tools:layout="@layout/fragment_movies_details" >
+        <action
+            android:id="@+id/action_moviesDetails_to_navigation_person"
+            app:destination="@id/navigation_person" />
+    </fragment>
+    <fragment
+        android:id="@+id/personListFragment"
+        android:name="com.hamdy.showtime.ui.ui.person_list.ui.PersonListFragment"
+        android:label="person_list_fragment"
+        tools:layout="@layout/person_list_fragment" >
+        <action
+            android:id="@+id/action_personListFragment_to_navigation_person"
+            app:destination="@id/navigation_person" />
+    </fragment>
 </navigation>

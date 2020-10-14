@@ -1,13 +1,10 @@
-package com.hamdy.showtime.ui.ui.all_movies.ui
+package com.hamdy.showtime.ui.ui.movies.ui
 
 import android.app.Dialog
-import android.content.Context
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.hamdy.showtime.R
-import com.hamdy.showtime.ui.ui.all_movies.repository.AllMoviesRepository
+import com.hamdy.showtime.ui.ui.movies.repository.AllMoviesRepository
 import com.hamdy.showtime.ui.model.PopularResultsItem
 import kotlinx.coroutines.*
 

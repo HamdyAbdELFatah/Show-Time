@@ -64,14 +64,14 @@
                     android:layout_marginRight="@dimen/_32sdp"
                     android:fontFamily="@font/play_fair_display_regular"
                     android:gravity="center"
-                    android:text="Leonardo"
                     android:textColor="#DDFFFFFF"
                     android:textSize="@dimen/_24ssp"
                     app:layout_collapseMode="pin"
                     app:layout_constraintBottom_toTopOf="@+id/castNickName"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toStartOf="parent" />
+                    app:layout_constraintStart_toStartOf="parent"
+                    tools:text="Leonardo" />
 
                 <TextView
                     android:id="@+id/castNickName"
@@ -80,13 +80,13 @@
                     android:layout_marginBottom="@dimen/_8sdp"
                     android:fontFamily="@font/play_fair_display_bold"
                     android:gravity="center"
-                    android:text="DiCaprio"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/_30ssp"
+                    android:textSize="@dimen/_28ssp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="@+id/castName"
                     app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toStartOf="@+id/castName" />
+                    app:layout_constraintStart_toStartOf="@+id/castName"
+                    tools:text="DiCaprio" />
             </androidx.constraintlayout.widget.ConstraintLayout>
             <ImageView
                 android:id="@+id/favoriteImage"
@@ -143,6 +143,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/knownText" />
 
             <include
+                android:id="@+id/bottomSheetContainer"
                 layout="@layout/bottom_sheet_persistent"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

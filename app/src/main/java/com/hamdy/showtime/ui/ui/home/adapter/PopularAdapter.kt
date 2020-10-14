@@ -7,14 +7,12 @@ import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.ScaleAnimation
 import androidx.core.os.bundleOf
-import androidx.core.view.ViewCompat
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.FragmentNavigator
-import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.hamdy.showtime.R
 import com.hamdy.showtime.databinding.MoviesItemBinding
+import com.hamdy.showtime.ui.model.PersonsResultsItem
 import com.hamdy.showtime.ui.model.PopularResultsItem
 import com.hamdy.showtime.ui.util.ImageUrlBase
 import kotlin.random.Random
@@ -84,7 +82,7 @@ class PopularAdapter : RecyclerView.Adapter<PopularAdapter.Holder>() {
         }
     }
 
-    fun setPopular(movies: List<PopularResultsItem>,action:Int) {
+    fun setPopular(movies: List<PopularResultsItem>, action:Int) {
         this.movies = movies
         this.action = action
         notifyDataSetChanged()

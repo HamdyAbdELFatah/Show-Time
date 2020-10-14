@@ -2,10 +2,10 @@ package com.hamdy.showtime.ui.model
 
 data class TrailerResponse(
 	val id: Int? = null,
-	val results: List<ResultsItem?>? = null
+	val results: List<PersonsResultsItem?>? = null
 )
 
-data class ResultsItem(
+data class TrailerResultsItem(
 	val site: String? = null,
 	val size: Int? = null,
 	val iso31661: String? = null,
