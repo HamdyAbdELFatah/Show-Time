@@ -21,7 +21,7 @@
             android:layout_marginTop="8dp"
             android:text="Upcoming"
             android:textColor="@color/white"
-            android:textSize="@dimen/_12sdp"
+            android:textSize="@dimen/_14ssp"
             app:layout_constraintStart_toStartOf="@+id/textView"
             app:layout_constraintTop_toBottomOf="@+id/hightRateRecyclerView" />
 
@@ -31,6 +31,7 @@
             android:layout_height="wrap_content"
             android:text="See All"
             android:textColor="@color/colorAccent"
+            android:textSize="@dimen/_10ssp"
             app:layout_constraintEnd_toEndOf="@+id/seeAllTopRated"
             app:layout_constraintTop_toTopOf="@+id/textView5" />
 
@@ -60,7 +61,7 @@
             android:layout_marginTop="8dp"
             android:text="High Rate"
             android:textColor="@color/white"
-            android:textSize="@dimen/_12sdp"
+            android:textSize="@dimen/_14ssp"
             app:layout_constraintStart_toStartOf="@+id/textView"
             app:layout_constraintTop_toBottomOf="@+id/popularRecyclerView" />
 
@@ -70,6 +71,7 @@
             android:layout_height="wrap_content"
             android:text="See All"
             android:textColor="@color/colorAccent"
+            android:textSize="@dimen/_10ssp"
             app:layout_constraintEnd_toEndOf="@+id/seeAllPopular"
             app:layout_constraintTop_toTopOf="@+id/textView3" />
 
@@ -91,7 +93,7 @@
             android:layout_marginTop="8dp"
             android:text="Popular"
             android:textColor="@color/white"
-            android:textSize="@dimen/_12sdp"
+            android:textSize="@dimen/_14ssp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/trendingRecyclerview" />
 
@@ -103,6 +105,7 @@
             android:layout_marginRight="16dp"
             android:text="See All"
             android:textColor="@color/colorAccent"
+            android:textSize="@dimen/_10ssp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/textView" />
 

@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "775700438093",
+    "firebase_url": "https://show-time-d955d.firebaseio.com",
+    "project_id": "show-time-d955d",
+    "storage_bucket": "show-time-d955d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:775700438093:android:828595b2f69c21cbf25004",
+        "android_client_info": {
+          "package_name": "com.hamdy.showtime"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "775700438093-22fmeu0r7bfemctemf2cgpgaj4fa9tdi.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.hamdy.showtime",
+            "certificate_hash": "3c45acec5ecfcfff5aefaa2e9929cc3c564dfdfb"
+          }
+        },
+        {
+          "client_id": "775700438093-c01o26sm5uvaj8v3oisq0n9vj1fu30av.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDEBICigA1RJR1ENtM0tLhlM6Ns5xwGipM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "775700438093-c01o26sm5uvaj8v3oisq0n9vj1fu30av.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

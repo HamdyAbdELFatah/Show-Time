@@ -1,6 +1,7 @@
 package com.hamdy.showtime.ui.ui.person_list.adapter
 
 import android.content.Context
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -48,7 +49,7 @@ class PopularPersonAdapter : RecyclerView.Adapter<PopularPersonAdapter.Holder>()
 //                .addSharedElement(holder.movieImage, ViewCompat.getTransitionName(holder.movieImage)!!)
 //                .addSharedElement(holder.moviesName, ViewCompat.getTransitionName(holder.moviesName)!!)
 //                .build()
-            val bundle = bundleOf("person" to Gson().toJson(person?.knownFor))
+            val bundle = Bundle()
             bundle.putString("posterPath", person?.profilePath!!)
             bundle.putInt("id", person.id!!)
 //            bundle.putInt("position", position)

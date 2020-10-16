@@ -1,6 +1,5 @@
 package com.hamdy.showtime.ui.ui.person_details.ui
 
-import android.app.Dialog
 import android.content.res.Resources
 import android.os.Build
 import android.os.Bundle
@@ -16,11 +15,9 @@ import com.google.gson.Gson
 import com.hamdy.showtime.R
 import com.hamdy.showtime.databinding.PersonDetailsFragmentBinding
 import com.hamdy.showtime.ui.model.KnownForItem
-import com.hamdy.showtime.ui.model.PersonsResultsItem
 import com.hamdy.showtime.ui.ui.person_details.adapter.KnownMoviesAdapter
 import com.hamdy.showtime.ui.ui.person_details.adapter.PersonPhotosAdapter
 import com.hamdy.showtime.ui.util.ImageUrlBase
-import org.json.JSONObject
 import kotlin.math.abs
 
 
@@ -32,6 +29,7 @@ class PersonDetailsFragment : Fragment(), AppBarLayout.OnOffsetChangedListener {
     private var castNickTextSize =0f
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        activity?.window?.clearFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
         viewModel =  ViewModelProvider(this).get(PersonDetailsViewModel::class.java)
         val personId=arguments?.getInt("id")
         viewModel.getPersonDetails(personId!!)
@@ -46,7 +44,6 @@ class PersonDetailsFragment : Fragment(), AppBarLayout.OnOffsetChangedListener {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         val posterPath=arguments?.getString("posterPath")
-        val person = Gson().fromJson(arguments?.getString("person"), Array<KnownForItem>::class.java)
         binding.appBarImage.load(ImageUrlBase + posterPath)
         binding.appBarImage.requestLayout()
         binding.viewDark.requestLayout()
@@ -56,7 +53,6 @@ class PersonDetailsFragment : Fragment(), AppBarLayout.OnOffsetChangedListener {
 
         binding.appbar.addOnOffsetChangedListener(this)
         val knownMoviesAdapter = KnownMoviesAdapter()
-        knownMoviesAdapter.setMovies(person.toList())
         binding.knownRecyclerView.adapter = knownMoviesAdapter
         val container =binding.bottomSheetContainer
         val personPhotosAdapter = PersonPhotosAdapter()
@@ -73,7 +69,7 @@ class PersonDetailsFragment : Fragment(), AppBarLayout.OnOffsetChangedListener {
                     container.seeMoreImage.setImageResource(R.drawable.ic_arrow_up)
                     false
                 } else {
-                    container.overviewText.maxLines = 3
+                    container.overviewText.maxLines = 4
                     container.seeMoreImage.setImageResource(R.drawable.ic_arrow_down)
                     true
                 }
@@ -87,6 +83,9 @@ class PersonDetailsFragment : Fragment(), AppBarLayout.OnOffsetChangedListener {
         })
         viewModel.listPersons.observe(viewLifecycleOwner , {
             personPhotosAdapter.setPerson(it)
+        })
+        viewModel.listKnown.observe(viewLifecycleOwner , {
+            knownMoviesAdapter.setMovies(it)
         })
     }
 
@@ -169,10 +168,5 @@ class PersonDetailsFragment : Fragment(), AppBarLayout.OnOffsetChangedListener {
                 mCurrentState = State.IDLE
             }
         }
-
-
-
-
-
     }
 }

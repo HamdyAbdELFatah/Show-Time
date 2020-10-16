@@ -4,6 +4,8 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import coil.transform.CircleCropTransformation
@@ -14,7 +16,7 @@ import com.hamdy.showtime.ui.util.ImageUrlBase
 
 
 class CastAdapter : RecyclerView.Adapter<CastAdapter.Holder>() {
-    private var movies: List<CastItem?>? = null
+    private var casts: List<CastItem?>? = null
     var context: Context? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
@@ -24,12 +26,12 @@ class CastAdapter : RecyclerView.Adapter<CastAdapter.Holder>() {
         )
     }
     override fun onBindViewHolder(holder: Holder, position: Int) {
-        val movie= movies?.get(position)
-        holder.castCharacter.text=movie?.character
+        val cast= casts?.get(position)
+        holder.castCharacter.text=cast?.character
         //holder.companyName.text=movie?.
-        holder.castName.text=movie?.name
-        if(movie?.profilePath!=null)
-            holder.castImage.load(ImageUrlBase+ movie.profilePath){
+        holder.castName.text=cast?.name
+        if(cast?.profilePath!=null)
+            holder.castImage.load(ImageUrlBase+ cast.profilePath){
                 crossfade(true)
                 crossfade(500)
                 transformations(CircleCropTransformation())
@@ -40,20 +42,28 @@ class CastAdapter : RecyclerView.Adapter<CastAdapter.Holder>() {
                 crossfade(500)
                 transformations(CircleCropTransformation())
             }
+        holder.castContainer.setOnClickListener {
+            val bundle = bundleOf("id" to cast?.id!!)
+            bundle.putString("posterPath", cast.profilePath!!)
+            it.findNavController().navigate(R.id.action_moviesDetails_to_navigation_person,bundle,null,null)
+
+        }
+
     }
     override fun getItemCount(): Int {
-        if(movies!=null)
-            return movies!!.size
+        if(casts!=null)
+            return casts!!.size
         return 0
     }
 
     fun setCast(movies: List<CastItem?>?) {
-        this.movies = movies
+        this.casts = movies
         notifyDataSetChanged()
     }
 
     class Holder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val binding = CastItemBinding.bind(itemView)
+        val castContainer = binding.castContainer
         val castImage = binding.castImage
         //val companyName = binding.companyName
         val castCharacter = binding.castCharacter

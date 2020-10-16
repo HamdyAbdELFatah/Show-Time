@@ -7,23 +7,18 @@ import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.ScaleAnimation
 import androidx.core.os.bundleOf
-import androidx.core.view.ViewCompat
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.FragmentNavigator
-import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.hamdy.showtime.R
 import com.hamdy.showtime.databinding.MoviesItemBinding
 import com.hamdy.showtime.ui.model.KnownForItem
-import com.hamdy.showtime.ui.model.PopularResultsItem
 import com.hamdy.showtime.ui.util.ImageUrlBase
 import kotlin.random.Random
 
 
 class KnownMoviesAdapter : RecyclerView.Adapter<KnownMoviesAdapter.Holder>() {
-    private var movies: List<KnownForItem>? = null
-    private var type: String? = null
+    private var movies: List<KnownForItem?>? = null
     var context: Context? = null
     private var lastPosition = -1
 
@@ -84,7 +79,7 @@ class KnownMoviesAdapter : RecyclerView.Adapter<KnownMoviesAdapter.Holder>() {
         }
     }
 
-    fun setMovies(movies: List<KnownForItem>) {
+    fun setMovies(movies: List<KnownForItem?>?) {
         this.movies = movies
         notifyDataSetChanged()
     }

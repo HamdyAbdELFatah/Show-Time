@@ -28,10 +28,6 @@ class MoviesDetails : Fragment() {
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        activity?.window?.setFlags(
-            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
-            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
-        )
 
 //        val transition = TransitionInflater.from(context).inflateTransition(android.R.transition.move)
 //        sharedElementEnterTransition = transition
@@ -51,6 +47,10 @@ class MoviesDetails : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        activity?.window?.setFlags(
+            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
+            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
+        )
         val posterPath= arguments?.get("posterPath").toString()
         val id= arguments?.getInt("id")!!
 //        val position= arguments?.getInt("position")!!
