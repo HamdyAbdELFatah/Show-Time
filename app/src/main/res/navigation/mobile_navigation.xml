@@ -28,6 +28,9 @@
         <action
             android:id="@+id/action_navigation_person_to_moviesDetails"
             app:destination="@id/moviesDetails" />
+        <action
+            android:id="@+id/action_navigation_person_to_loginFragment"
+            app:destination="@id/loginFragment" />
     </fragment>
 
     <fragment
@@ -59,6 +62,9 @@
         <action
             android:id="@+id/action_moviesDetails_to_navigation_person"
             app:destination="@id/navigation_person" />
+        <action
+            android:id="@+id/action_moviesDetails_to_loginFragment"
+            app:destination="@id/loginFragment" />
     </fragment>
     <fragment
         android:id="@+id/personListFragment"
@@ -68,5 +74,23 @@
         <action
             android:id="@+id/action_personListFragment_to_navigation_person"
             app:destination="@id/navigation_person" />
+    </fragment>
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.hamdy.showtime.ui.ui.login.LoginFragment"
+        android:label="login_fragment"
+        tools:layout="@layout/login_fragment" >
+        <action
+            android:id="@+id/action_loginFragment_to_registerFragment"
+            app:destination="@id/registerFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/registerFragment"
+        android:name="com.hamdy.showtime.ui.ui.register.RegisterFragment"
+        android:label="register_fragment"
+        tools:layout="@layout/register_fragment" >
+        <action
+            android:id="@+id/action_registerFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
     </fragment>
 </navigation>

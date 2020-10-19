@@ -11,6 +11,7 @@ import androidx.core.view.ViewCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.transition.ChangeBounds
 import androidx.transition.TransitionInflater
@@ -34,41 +35,34 @@ class MoviesDetails : Fragment() {
 //        sharedElementReturnTransition = transition
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        moviesDetailsViewModel =
-            ViewModelProvider(this).get(MoviesDetailsViewModel::class.java)
+    override fun onCreateView(inflater: LayoutInflater, container : ViewGroup?, savedInstanceState: Bundle?): View? {
+        moviesDetailsViewModel = ViewModelProvider(this).get(MoviesDetailsViewModel::class.java)
         binding = FragmentMoviesDetailsBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        activity?.window?.setFlags(
-            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
-            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
-        )
+        activity?.window?.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
         val posterPath= arguments?.get("posterPath").toString()
         val id= arguments?.getInt("id")!!
 //        val position= arguments?.getInt("position")!!
 //        val type= arguments?.getString("type")!!
         moviesDetailsViewModel.getCastMovieList(id)
         moviesDetailsViewModel.getMoviesDetails(id)
+
         binding.moviePosterImage.load(ImageUrlBase + posterPath)
         binding.moviesBackGroundImage.load(ImageUrlBase + posterPath)
         val castAdapter=CastAdapter()
         binding.castRecyclerView.adapter= castAdapter
-        binding.castRecyclerView.layoutManager=LinearLayoutManager(
-            context,
-            LinearLayoutManager.HORIZONTAL,
-            false
-        )
+        binding.castRecyclerView.layoutManager=LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        binding.favoriteIcon.setOnClickListener {
+            it.findNavController().navigate(R.id.action_moviesDetails_to_loginFragment,null,null,null)
+        }
         moviesDetailsViewModel.listCastMovie.observe(viewLifecycleOwner, Observer {
             castAdapter.setCast(it)
         })
+
         moviesDetailsViewModel.movieDetails.observe(viewLifecycleOwner, Observer {
             binding.movieName.text = it?.title
             binding.overviewText.text = it?.overview

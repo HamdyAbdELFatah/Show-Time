@@ -10,6 +10,6 @@
     <color name="starColor">#F9B82C</color>
     <color name="transparent">@android:color/transparent</color>
     <color name="gray">@android:color/tertiary_text_dark</color>
-
+    <color name="icons">#212121</color>
 
 </resources>
