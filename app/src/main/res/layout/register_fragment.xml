@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
-    tools:context=".ui.ui.register.RegisterFragment">
+    tools:context=".ui.ui.register.ui.RegisterFragment">
 
     <View
         android:id="@+id/view2"
@@ -42,15 +42,15 @@
         app:layout_constraintGuide_percent="0.15" />
 
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/userName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/_32sdp"
         android:layout_marginLeft="@dimen/_32sdp"
         android:layout_marginEnd="@dimen/_32sdp"
         android:layout_marginRight="@dimen/_32sdp"
-        android:layout_marginTop="@dimen/_52sdp"
-        android:backgroundTint="@color/colorPrimary"
+        android:layout_marginTop="@dimen/_62sdp"
+        android:backgroundTint="@color/colorAccent"
         android:drawableStart="@drawable/user"
         android:drawableLeft="@drawable/user"
         android:drawablePadding="4dp"
@@ -64,10 +64,10 @@
         app:layout_constraintTop_toTopOf="@+id/guideline" />
 
     <EditText
-        android:id="@+id/editphone"
+        android:id="@+id/emailRegister"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:backgroundTint="@color/colorPrimary"
+        android:backgroundTint="@color/colorAccent"
         android:drawableStart="@drawable/mail"
         android:drawableLeft="@drawable/mail"
         android:drawablePadding="4dp"
@@ -77,17 +77,17 @@
         android:inputType="textEmailAddress"
         android:textColor="@color/colorPrimary"
         android:textColorHint="@color/lightGray"
-        app:layout_constraintEnd_toEndOf="@+id/editText"
+        app:layout_constraintEnd_toEndOf="@+id/userName"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/editText"
-        app:layout_constraintTop_toBottomOf="@+id/editText" />
+        app:layout_constraintStart_toStartOf="@+id/userName"
+        app:layout_constraintTop_toBottomOf="@+id/userName" />
 
 
     <EditText
-        android:id="@+id/editText3"
+        android:id="@+id/passwordRegister"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:backgroundTint="@color/colorPrimary"
+        android:backgroundTint="@color/colorAccent"
         android:drawableStart="@drawable/password_icon"
         android:drawableLeft="@drawable/password_icon"
         android:drawablePadding="4dp"
@@ -98,13 +98,28 @@
         android:inputType="textPassword"
         android:textColor="@color/colorPrimary"
         android:textColorHint="@color/lightGray"
-        app:layout_constraintEnd_toEndOf="@+id/editphone"
+        app:layout_constraintEnd_toEndOf="@+id/emailRegister"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/editphone"
-        app:layout_constraintTop_toBottomOf="@+id/editphone" />
+        app:layout_constraintStart_toStartOf="@+id/emailRegister"
+        app:layout_constraintTop_toBottomOf="@+id/emailRegister" />
+
+    <TextView
+        android:id="@+id/textView48"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:text="Forget password?"
+        android:textColor="@color/colorAccent"
+        app:autoSizeTextType="uniform"
+        app:layout_constraintDimensionRatio="15:1"
+        android:layout_marginTop="@dimen/_4sdp"
+        app:layout_constraintEnd_toEndOf="@+id/passwordRegister"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/passwordRegister"
+        app:layout_constraintTop_toBottomOf="@+id/passwordRegister"
+        app:layout_constraintVertical_bias="0.050000012" />
 
     <Button
-        android:id="@+id/imageButton"
+        android:id="@+id/signButton"
         style="@style/Widget.AppCompat.Button.Borderless"
         android:layout_width="0dp"
         android:layout_height="wrap_content"

@@ -30,7 +30,8 @@
             app:destination="@id/moviesDetails" />
         <action
             android:id="@+id/action_navigation_person_to_loginFragment"
-            app:destination="@id/loginFragment" />
+            app:destination="@id/loginFragment"
+            app:popUpTo="@id/navigation_person" />
     </fragment>
 
     <fragment
@@ -77,19 +78,23 @@
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.hamdy.showtime.ui.ui.login.LoginFragment"
+        android:name="com.hamdy.showtime.ui.ui.login.ui.LoginFragment"
         android:label="login_fragment"
         tools:layout="@layout/login_fragment" >
         <action
+            app:popUpTo="@id/loginFragment"
+            app:popUpToInclusive="true"
             android:id="@+id/action_loginFragment_to_registerFragment"
             app:destination="@id/registerFragment" />
     </fragment>
     <fragment
         android:id="@+id/registerFragment"
-        android:name="com.hamdy.showtime.ui.ui.register.RegisterFragment"
+        android:name="com.hamdy.showtime.ui.ui.register.ui.RegisterFragment"
         android:label="register_fragment"
         tools:layout="@layout/register_fragment" >
         <action
+            app:popUpTo="@id/registerFragment"
+            app:popUpToInclusive="true"
             android:id="@+id/action_registerFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
     </fragment>

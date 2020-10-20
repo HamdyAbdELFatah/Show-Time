@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/colorPrimary"
-    tools:context=".ui.ui.login.LoginFragment">
+    tools:context=".ui.ui.login.ui.LoginFragment">
 
     <View
         android:id="@+id/view2"
@@ -40,7 +40,7 @@
         app:layout_constraintGuide_percent="0.32" />
 
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/emailLogin"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/_32sdp"
@@ -62,7 +62,7 @@
         app:layout_constraintTop_toTopOf="@+id/guideline" />
 
     <EditText
-        android:id="@+id/editText2"
+        android:id="@+id/password"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_16sdp"
@@ -73,13 +73,15 @@
         android:ems="10"
         android:hint="Password"
         android:textColorHint="@color/lightGray"
-
+        android:textColor="@color/colorPrimary"
         android:inputType="textPassword"
         android:paddingRight="@dimen/_45sdp"
-        app:layout_constraintEnd_toEndOf="@+id/editText"
+        android:paddingEnd="@dimen/_45sdp"
+        app:layout_constraintEnd_toEndOf="@+id/emailLogin"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/editText"
-        app:layout_constraintTop_toBottomOf="@+id/editText" />
+        app:layout_constraintStart_toStartOf="@+id/emailLogin"
+        app:layout_constraintTop_toBottomOf="@+id/emailLogin"
+        />
 
     <TextView
         android:id="@+id/textView48"
@@ -95,13 +97,13 @@
         app:layout_constraintDimensionRatio="15:1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/editText2"
-        app:layout_constraintTop_toBottomOf="@+id/editText2"
+        app:layout_constraintStart_toStartOf="@+id/password"
+        app:layout_constraintTop_toBottomOf="@+id/password"
         app:layout_constraintVertical_bias="0.050000012" />
 
 
     <Button
-        android:id="@+id/imageButton"
+        android:id="@+id/signButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/_24sdp"
@@ -168,11 +170,11 @@
         android:layout_marginTop="5dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        app:layout_constraintBottom_toBottomOf="@+id/editText2"
-        app:layout_constraintEnd_toEndOf="@+id/editText2"
+        app:layout_constraintBottom_toBottomOf="@+id/password"
+        app:layout_constraintEnd_toEndOf="@+id/password"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/editText2"
-        app:layout_constraintTop_toTopOf="@+id/editText2"
+        app:layout_constraintStart_toStartOf="@+id/password"
+        app:layout_constraintTop_toTopOf="@+id/password"
         app:layout_constraintVertical_bias="0.0"
         tools:ignore="VectorDrawableCompat" />
 
