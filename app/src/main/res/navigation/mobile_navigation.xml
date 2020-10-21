@@ -41,7 +41,7 @@
 
     <fragment
         android:id="@+id/navigation_favorite"
-        android:name="com.hamdy.showtime.ui.ui.favorite.FavoriteFragment"
+        android:name="com.hamdy.showtime.ui.ui.favorite.ui.FavoriteFragment"
         tools:layout="@layout/fragment_favorite" />
     <fragment
         android:id="@+id/fragment_all_movies"

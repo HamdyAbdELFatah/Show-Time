@@ -15,6 +15,7 @@ class PersonDetailsViewModel : ViewModel() {
     private val personDetailsRepository= PersonDetailsRepository()
     var listPersons = MutableLiveData<List<ProfilesItem?>?>()
     var listKnown = MutableLiveData<List<KnownForItem?>?>()
+    var favorite = MutableLiveData<Boolean>()
     var personDetails = MutableLiveData<PersonDetailsResponse>()
 
 
@@ -35,6 +36,20 @@ class PersonDetailsViewModel : ViewModel() {
             withContext(Dispatchers.Main) {
                 listPersons.postValue(response)
             }
+        }
+    }
+
+    fun getFavorite(id:Int) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val exist=personDetailsRepository.getFavorite(id)
+            withContext(Dispatchers.Main){
+                favorite.postValue(exist)
+            }
+        }
+    }
+    fun setFavorite(id:Int,poster:String,exist:Boolean) {
+        viewModelScope.launch(Dispatchers.IO) {
+            personDetailsRepository.setFavorite(id,poster,exist)
         }
     }
 }

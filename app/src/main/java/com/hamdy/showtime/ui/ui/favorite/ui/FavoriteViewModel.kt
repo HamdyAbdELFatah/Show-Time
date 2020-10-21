@@ -1,4 +1,4 @@
-package com.hamdy.showtime.ui.ui.favorite
+package com.hamdy.showtime.ui.ui.favorite.ui
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

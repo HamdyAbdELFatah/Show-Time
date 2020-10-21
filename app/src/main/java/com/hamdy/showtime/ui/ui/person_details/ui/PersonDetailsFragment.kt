@@ -1,5 +1,7 @@
 package com.hamdy.showtime.ui.ui.person_details.ui
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.content.res.Resources
 import android.os.Build
 import android.os.Bundle
@@ -9,6 +11,7 @@ import androidx.annotation.RequiresApi
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
 import coil.load
 import com.google.android.material.appbar.AppBarLayout
 import com.google.gson.Gson
@@ -27,13 +30,17 @@ class PersonDetailsFragment : Fragment(), AppBarLayout.OnOffsetChangedListener {
     private  val TAG = "PersonDetailsFragment"
     private var castNameTextSize =0f
     private var castNickTextSize =0f
+    private var sharedIdValue = false
+    private var favorite = false
+    private var personId = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         activity?.window?.clearFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
         viewModel =  ViewModelProvider(this).get(PersonDetailsViewModel::class.java)
-        val personId=arguments?.getInt("id")
-        viewModel.getPersonDetails(personId!!)
+        personId= arguments?.getInt("id")!!
+        viewModel.getPersonDetails(personId)
         viewModel.getPersonImage(personId)
+        viewModel.getFavorite(personId)
 
     }
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -52,11 +59,34 @@ class PersonDetailsFragment : Fragment(), AppBarLayout.OnOffsetChangedListener {
         castNickTextSize = binding.castNickName.textSize
 
         binding.appbar.addOnOffsetChangedListener(this)
+        binding.favoriteImage.setOnClickListener {
+            val sharedPreferences: SharedPreferences =
+                context?.getSharedPreferences("ShowTimeAuth", Context.MODE_PRIVATE)!!
+            sharedIdValue = sharedPreferences.getBoolean("login",false)
+            if(sharedIdValue){
+                viewModel.setFavorite(personId,ImageUrlBase + posterPath,favorite)
+                if(favorite)
+                    binding.favoriteImage.setImageResource(R.drawable.ic_favorite)
+                else
+                    binding.favoriteImage.setImageResource(R.drawable.ic_favorite_choosed)
+                favorite=!favorite
+            }else {
+                it.findNavController()
+                    .navigate(R.id.action_navigation_person_to_loginFragment, null, null, null)
+            }
+        }
         val knownMoviesAdapter = KnownMoviesAdapter()
         binding.knownRecyclerView.adapter = knownMoviesAdapter
         val container =binding.bottomSheetContainer
         val personPhotosAdapter = PersonPhotosAdapter()
         container.photoRecyclerView.adapter = personPhotosAdapter
+        viewModel.favorite.observe(viewLifecycleOwner, {
+            favorite=it
+            if(it)
+                binding.favoriteImage.setImageResource(R.drawable.ic_favorite_choosed)
+            else
+                binding.favoriteImage.setImageResource(R.drawable.ic_favorite)
+        })
         viewModel.personDetails.observe(viewLifecycleOwner , {
             container.overviewText.text=it.biography
             var isTextViewClicked = true

@@ -70,8 +70,8 @@
 
             <ImageView
                 android:id="@+id/favoriteIcon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/_24sdp"
+                android:layout_height="@dimen/_24sdp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginRight="@dimen/_16sdp"
                 android:src="@drawable/ic_favorite"

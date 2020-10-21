@@ -1,6 +1,8 @@
 package com.hamdy.showtime.ui.ui.login.ui
 
 import android.app.Dialog
+import android.content.Context
+import android.content.SharedPreferences
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.util.Patterns
@@ -11,6 +13,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.google.firebase.auth.FirebaseAuth
 import com.hamdy.showtime.R
 import com.hamdy.showtime.databinding.LoginFragmentBinding
@@ -48,6 +51,15 @@ class LoginFragment : Fragment() {
         viewModel.responseLiveData.observe(viewLifecycleOwner, {
             Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
             dialog.cancel()
+            if(it == "Successful"){
+                val sharedPreferences: SharedPreferences =
+                    context?.getSharedPreferences("ShowTimeAuth",Context.MODE_PRIVATE)!!
+                val editor:SharedPreferences.Editor =  sharedPreferences.edit()
+                editor.putBoolean("login",true)
+                editor.apply()
+                editor.commit()
+                findNavController().popBackStack()
+            }
         })
 
 //        FirebaseAuth.getInstance().signInWithEmailAndPassword(email,password).addOnCompleteListener {

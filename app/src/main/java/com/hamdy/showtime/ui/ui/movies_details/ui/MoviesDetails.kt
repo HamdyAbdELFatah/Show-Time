@@ -1,5 +1,7 @@
 package com.hamdy.showtime.ui.ui.movies_details.ui
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,14 +9,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import androidx.annotation.RequiresApi
-import androidx.core.view.ViewCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.transition.ChangeBounds
-import androidx.transition.TransitionInflater
 import coil.load
 import com.hamdy.showtime.R
 import com.hamdy.showtime.databinding.FragmentMoviesDetailsBinding
@@ -25,7 +24,8 @@ class MoviesDetails : Fragment() {
 
     private lateinit var moviesDetailsViewModel: MoviesDetailsViewModel
     private lateinit var binding: FragmentMoviesDetailsBinding
-
+    private var sharedIdValue = false
+    private var favorite = false
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,6 +50,7 @@ class MoviesDetails : Fragment() {
 //        val type= arguments?.getString("type")!!
         moviesDetailsViewModel.getCastMovieList(id)
         moviesDetailsViewModel.getMoviesDetails(id)
+        moviesDetailsViewModel.getFavorite(id)
 
         binding.moviePosterImage.load(ImageUrlBase + posterPath)
         binding.moviesBackGroundImage.load(ImageUrlBase + posterPath)
@@ -57,10 +58,30 @@ class MoviesDetails : Fragment() {
         binding.castRecyclerView.adapter= castAdapter
         binding.castRecyclerView.layoutManager=LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         binding.favoriteIcon.setOnClickListener {
-            it.findNavController().navigate(R.id.action_moviesDetails_to_loginFragment,null,null,null)
+            val sharedPreferences: SharedPreferences =
+                context?.getSharedPreferences("ShowTimeAuth", Context.MODE_PRIVATE)!!
+            sharedIdValue = sharedPreferences.getBoolean("login",false)
+            if(sharedIdValue){
+                moviesDetailsViewModel.setFavorite(id,ImageUrlBase + posterPath,favorite)
+                if(favorite)
+                    binding.favoriteIcon.setImageResource(R.drawable.ic_favorite)
+                else
+                    binding.favoriteIcon.setImageResource(R.drawable.ic_favorite_choosed)
+                favorite=!favorite
+            }else {
+                it.findNavController()
+                    .navigate(R.id.action_moviesDetails_to_loginFragment, null, null, null)
+            }
         }
-        moviesDetailsViewModel.listCastMovie.observe(viewLifecycleOwner, Observer {
+        moviesDetailsViewModel.listCastMovie.observe(viewLifecycleOwner, {
             castAdapter.setCast(it)
+        })
+        moviesDetailsViewModel.favorite.observe(viewLifecycleOwner, {
+            favorite=it
+            if(it)
+                binding.favoriteIcon.setImageResource(R.drawable.ic_favorite_choosed)
+            else
+                binding.favoriteIcon.setImageResource(R.drawable.ic_favorite)
         })
 
         moviesDetailsViewModel.movieDetails.observe(viewLifecycleOwner, Observer {

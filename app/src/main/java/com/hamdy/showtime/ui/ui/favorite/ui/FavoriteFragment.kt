@@ -1,4 +1,4 @@
-package com.hamdy.showtime.ui.ui.favorite
+package com.hamdy.showtime.ui.ui.favorite.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater
