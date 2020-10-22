@@ -3,16 +3,15 @@ package com.hamdy.showtime.ui.util
 import android.content.Context
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import kotlin.math.abs
+import kotlin.math.min
 
 class CenterZoomLayoutManager(context: Context?, orientation: Int, reverseLayout: Boolean) :
     LinearLayoutManager(context, orientation, reverseLayout) {
     private val mShrinkAmount = 0.15f
     private val mShrinkDistance = 0.9f
 
-    override fun scrollHorizontallyBy(
-        dx: Int,
-        recycler: RecyclerView.Recycler?,
-        state: RecyclerView.State?
+    override fun scrollHorizontallyBy(dx: Int, recycler: RecyclerView.Recycler?, state: RecyclerView.State?
     ): Int {
         val orientation = orientation
         return if (orientation == HORIZONTAL) {
@@ -25,7 +24,7 @@ class CenterZoomLayoutManager(context: Context?, orientation: Int, reverseLayout
             for (i in 0 until childCount) {
                 val child = getChildAt(i)
                 val childMidpoint = (getDecoratedRight(child!!) + getDecoratedLeft(child)) / 2f
-                val d = Math.min(d1, Math.abs(midpoint - childMidpoint))
+                val d = min(d1, abs(midpoint - childMidpoint))
                 val scale = s0 + (s1 - s0) * (d - d0) / (d1 - d0)
                 child.scaleX = scale
                 child.scaleY = scale
