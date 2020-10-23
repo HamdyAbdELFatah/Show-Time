@@ -64,7 +64,7 @@ class PersonDetailsFragment : Fragment(), AppBarLayout.OnOffsetChangedListener {
                 context?.getSharedPreferences("ShowTimeAuth", Context.MODE_PRIVATE)!!
             sharedIdValue = sharedPreferences.getBoolean("login",false)
             if(sharedIdValue){
-                viewModel.setFavorite(personId,ImageUrlBase + posterPath,favorite)
+                viewModel.setFavorite(personId, posterPath!!,favorite)
                 if(favorite)
                     binding.favoriteImage.setImageResource(R.drawable.ic_favorite)
                 else

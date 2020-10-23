@@ -35,11 +35,6 @@
     </fragment>
 
     <fragment
-        android:id="@+id/navigation_profile"
-        android:name="com.hamdy.showtime.ui.ui.profile.ProfileFragment"
-        tools:layout="@layout/fragment_profile" />
-
-    <fragment
         android:id="@+id/navigation_favorite"
         android:name="com.hamdy.showtime.ui.ui.favorite.ui.FavoriteFragment"
         tools:layout="@layout/fragment_favorite" />
@@ -97,5 +92,23 @@
             app:popUpToInclusive="true"
             android:id="@+id/action_registerFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/favoriteMoviesFragment"
+        android:name="com.hamdy.showtime.ui.ui.favorite.ui.fragment.favorite_movies.ui.FavoriteMoviesFragment"
+        android:label="favorite_movies_fragment"
+        tools:layout="@layout/favorite_movies_fragment" >
+        <action
+            android:id="@+id/action_favoriteMoviesFragment_to_moviesDetails"
+            app:destination="@id/moviesDetails" />
+    </fragment>
+    <fragment
+        android:id="@+id/favoritePersonFragment"
+        android:name="com.hamdy.showtime.ui.ui.favorite.ui.fragment.favorite_person.ui.FavoritePersonFragment"
+        android:label="favorite_person_fragment"
+        tools:layout="@layout/favorite_person_fragment" >
+        <action
+            android:id="@+id/action_favoritePersonFragment_to_navigation_person"
+            app:destination="@id/navigation_person" />
     </fragment>
 </navigation>

@@ -62,7 +62,7 @@ class MoviesDetails : Fragment() {
                 context?.getSharedPreferences("ShowTimeAuth", Context.MODE_PRIVATE)!!
             sharedIdValue = sharedPreferences.getBoolean("login",false)
             if(sharedIdValue){
-                moviesDetailsViewModel.setFavorite(id,ImageUrlBase + posterPath,favorite)
+                moviesDetailsViewModel.setFavorite(id,posterPath,favorite)
                 if(favorite)
                     binding.favoriteIcon.setImageResource(R.drawable.ic_favorite)
                 else

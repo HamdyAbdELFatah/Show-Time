@@ -39,7 +39,7 @@ class MoviesDetailsRepository {
                     .collection("FavoriteMovies").document(id.toString())
             val map = HashMap<String, String>()
             map["poster"] = poster
-            map["movieId"] = id.toString()
+            map["favoriteId"] = id.toString()
             collectionReference.set(map).await()
         }else{
             val collectionReference =
