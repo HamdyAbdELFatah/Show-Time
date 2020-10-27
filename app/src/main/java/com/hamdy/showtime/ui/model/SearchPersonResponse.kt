@@ -2,22 +2,49 @@ package com.hamdy.showtime.ui.model
 
 import com.google.gson.annotations.SerializedName
 
-data class PersonsResponse(
+data class SearchPersonResponse(
 
-	@field:SerializedName("page")
+    @field:SerializedName("page")
 	val page: Int? = null,
 
-	@field:SerializedName("total_pages")
+    @field:SerializedName("total_pages")
 	val totalPages: Int? = null,
 
-	@field:SerializedName("results")
-	val personsResults: List<PersonsResultsItem>? = null,
+    @field:SerializedName("results")
+	val results: List<SearchResultsItem?>? = null,
 
-	@field:SerializedName("total_results")
+    @field:SerializedName("total_results")
 	val totalResults: Int? = null
 )
 
-data class SearchKnownForItem(
+data class ResultsItem(
+
+    @field:SerializedName("gender")
+	val gender: Int? = null,
+
+    @field:SerializedName("known_for_department")
+	val knownForDepartment: String? = null,
+
+    @field:SerializedName("popularity")
+	val popularity: Double? = null,
+
+    @field:SerializedName("known_for")
+	val knownFor: List<SearchKnownForItem?>? = null,
+
+    @field:SerializedName("name")
+	val name: String? = null,
+
+    @field:SerializedName("profile_path")
+	val profilePath: Any? = null,
+
+    @field:SerializedName("id")
+	val id: Int? = null,
+
+    @field:SerializedName("adult")
+	val adult: Boolean? = null
+)
+
+data class KnownForItem(
 
 	@field:SerializedName("overview")
 	val overview: String? = null,
@@ -60,31 +87,4 @@ data class SearchKnownForItem(
 
 	@field:SerializedName("vote_count")
 	val voteCount: Int? = null
-)
-
-data class PersonsResultsItem(
-
-	@field:SerializedName("gender")
-	val gender: Int? = null,
-
-	@field:SerializedName("known_for_department")
-	val knownForDepartment: String? = null,
-
-	@field:SerializedName("popularity")
-	val popularity: Double? = null,
-
-	@field:SerializedName("known_for")
-	val knownFor: List<SearchKnownForItem?>? = null,
-
-	@field:SerializedName("name")
-	val name: String? = null,
-
-	@field:SerializedName("profile_path")
-	val profilePath: String? = null,
-
-	@field:SerializedName("id")
-	val id: Int? = null,
-
-	@field:SerializedName("adult")
-	val adult: Boolean? = null
 )

@@ -68,13 +68,13 @@ class RegisterFragment : Fragment() {
         val userName =binding.userName
         val email =binding.emailRegister
         val password =binding.passwordRegister
-        if (name.isEmpty() && !Patterns.EMAIL_ADDRESS.matcher(name).matches()) {
+        if (name.isEmpty()) {
             valid = false
             userName.error = "User name can't be empty"
         } else {
             userName.error = null
         }
-        if (mail.isEmpty() && !Patterns.EMAIL_ADDRESS.matcher(mail).matches()) {
+        if (mail.isEmpty() && Patterns.EMAIL_ADDRESS.matcher(mail).matches()) {
             valid = false
             email.error = "Email can't be empty"
         } else {

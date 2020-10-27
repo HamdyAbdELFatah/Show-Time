@@ -1,5 +1,6 @@
 package com.hamdy.showtime.ui.ui.favorite.ui.fragment.favorite_movies.ui
 
+import android.app.Dialog
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.util.Log
@@ -24,6 +25,9 @@ class FavoriteMoviesFragment : Fragment() {
     private lateinit var binding: FavoriteMoviesFragmentBinding
     private lateinit var snapHelper: LinearSnapHelper
     private lateinit var arr: List<FavoriteItem>
+    lateinit var dialog: Dialog
+    private var position =0
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding=FavoriteMoviesFragmentBinding.inflate(inflater, container, false)
         return binding.root
@@ -32,22 +36,23 @@ class FavoriteMoviesFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(FavoriteMoviesViewModel::class.java)
+        createDialog()
         viewModel.getFavorite()
         val layoutManger= CenterZoomLayoutManager(context, RecyclerView.HORIZONTAL, false)
         binding.favoriteRecyclerView.layoutManager=layoutManger
-        binding.favoriteRecyclerView.adapter=FavoriteAdapter()
         snapHelper = LinearSnapHelper()
         snapHelper.attachToRecyclerView(binding.favoriteRecyclerView)
         val favoriteAdapter=FavoriteAdapter()
         binding.favoriteRecyclerView.adapter = favoriteAdapter
         viewModel.listFavoriteMovie.observe(viewLifecycleOwner, {
             arr=it
-            binding.backGroundFavorite.load(ImageUrlBase+arr[0].poster){
+            if(arr.isNotEmpty())
+            binding.backGroundFavorite.load(ImageUrlBase+arr[position].poster){
                 crossfade(true)
                 crossfade(1000)
             }
-
-            favoriteAdapter.setFavorite(it,R.id.action_favoriteMoviesFragment_to_moviesDetails)
+            dialog.cancel()
+            favoriteAdapter.setFavorite(it,R.id.action_navigation_favorite_to_moviesDetails)
         })
         binding.favoriteRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
@@ -55,6 +60,7 @@ class FavoriteMoviesFragment : Fragment() {
                 if (newState == RecyclerView.SCROLL_STATE_IDLE) {
                     val centerView = snapHelper.findSnapView(layoutManger)
                     val pos: Int = layoutManger.getPosition(centerView!!)
+                    position=pos
                     binding.backGroundFavorite.load(ImageUrlBase+arr[pos].poster){
                         crossfade(true)
                         crossfade(1000)
@@ -65,4 +71,10 @@ class FavoriteMoviesFragment : Fragment() {
         })
     }
 
+    private fun createDialog(){
+        dialog =  Dialog(requireContext())
+        dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+        dialog.setContentView(R.layout.loading_bar)
+        dialog.show()
+    }
 }

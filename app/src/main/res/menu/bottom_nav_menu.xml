@@ -12,13 +12,14 @@
         android:title="@string/person" />
 
     <item
+        android:id="@+id/searchFragment"
+        android:icon="@drawable/ic_search"
+        android:title="@string/title_search" />
+
+    <item
         android:id="@+id/navigation_favorite"
         android:icon="@drawable/ic_favorite"
         android:title="@string/title_favorite" />
 
-    <item
-        android:id="@+id/navigation_profile"
-        android:icon="@drawable/ic_settings"
-        android:title="@string/title_profile" />
 
 </menu>

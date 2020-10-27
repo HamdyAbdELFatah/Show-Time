@@ -12,13 +12,13 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.hamdy.showtime.R
 import com.hamdy.showtime.databinding.MoviesItemBinding
-import com.hamdy.showtime.ui.model.KnownForItem
+import com.hamdy.showtime.ui.model.SearchKnownForItem
 import com.hamdy.showtime.ui.util.ImageUrlBase
 import kotlin.random.Random
 
 
 class KnownMoviesAdapter : RecyclerView.Adapter<KnownMoviesAdapter.Holder>() {
-    private var movies: List<KnownForItem?>? = null
+    private var movies: List<SearchKnownForItem?>? = null
     var context: Context? = null
     private var lastPosition = -1
 
@@ -79,7 +79,7 @@ class KnownMoviesAdapter : RecyclerView.Adapter<KnownMoviesAdapter.Holder>() {
         }
     }
 
-    fun setMovies(movies: List<KnownForItem?>?) {
+    fun setMovies(movies: List<SearchKnownForItem?>?) {
         this.movies = movies
         notifyDataSetChanged()
     }

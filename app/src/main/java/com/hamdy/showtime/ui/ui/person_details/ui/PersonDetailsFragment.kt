@@ -14,10 +14,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import coil.load
 import com.google.android.material.appbar.AppBarLayout
-import com.google.gson.Gson
 import com.hamdy.showtime.R
 import com.hamdy.showtime.databinding.PersonDetailsFragmentBinding
-import com.hamdy.showtime.ui.model.KnownForItem
 import com.hamdy.showtime.ui.ui.person_details.adapter.KnownMoviesAdapter
 import com.hamdy.showtime.ui.ui.person_details.adapter.PersonPhotosAdapter
 import com.hamdy.showtime.ui.util.ImageUrlBase

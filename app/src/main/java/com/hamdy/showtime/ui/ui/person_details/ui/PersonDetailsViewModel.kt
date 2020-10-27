@@ -3,7 +3,7 @@ package com.hamdy.showtime.ui.ui.person_details.ui
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.hamdy.showtime.ui.model.KnownForItem
+import com.hamdy.showtime.ui.model.SearchKnownForItem
 import com.hamdy.showtime.ui.model.PersonDetailsResponse
 import com.hamdy.showtime.ui.model.ProfilesItem
 import com.hamdy.showtime.ui.ui.person_details.repository.PersonDetailsRepository
@@ -14,7 +14,7 @@ import kotlinx.coroutines.withContext
 class PersonDetailsViewModel : ViewModel() {
     private val personDetailsRepository= PersonDetailsRepository()
     var listPersons = MutableLiveData<List<ProfilesItem?>?>()
-    var listKnown = MutableLiveData<List<KnownForItem?>?>()
+    var listKnown = MutableLiveData<List<SearchKnownForItem?>?>()
     var favorite = MutableLiveData<Boolean>()
     var personDetails = MutableLiveData<PersonDetailsResponse>()
 

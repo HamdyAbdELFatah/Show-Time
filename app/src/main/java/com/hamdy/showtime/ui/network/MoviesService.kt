@@ -1,9 +1,6 @@
 package com.hamdy.showtime.ui.network
 
-import com.hamdy.showtime.ui.model.CastResponse
-import com.hamdy.showtime.ui.model.MoviesDetailsResponse
-import com.hamdy.showtime.ui.model.PopularResponse
-import com.hamdy.showtime.ui.model.TrailerResponse
+import com.hamdy.showtime.ui.model.*
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -31,5 +28,8 @@ interface MoviesService {
 
     @GET("movie/{id}?")
     suspend fun getMoviesDetails(@Path("id") page:Int,@Query("api_key") key:String): Response<MoviesDetailsResponse>
+
+    @GET("search/movie?")
+    suspend fun getMoviesSearch(@Query("api_key") key:String,@Query("query") query:String): Response<SearchMoviesResponse>
 
 }

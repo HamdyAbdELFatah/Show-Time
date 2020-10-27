@@ -1,17 +1,14 @@
 package com.hamdy.showtime.ui.ui.home.adapter
 
 import android.content.Context
-import android.util.DisplayMetrics
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
-import coil.size.Scale
 import coil.transform.CircleCropTransformation
 import com.hamdy.showtime.R
+import com.hamdy.showtime.databinding.ItemTrendingBinding
 import com.hamdy.showtime.ui.model.PopularResultsItem
 import com.hamdy.showtime.ui.util.ImageUrlBase
 
@@ -28,15 +25,12 @@ class TrendingAdapter : RecyclerView.Adapter<TrendingAdapter.Holder>() {
     }
     override fun onBindViewHolder(holder: Holder, position: Int) {
         val movie= movies?.get(position)
-        val displayMetrics: DisplayMetrics = context?.resources?.displayMetrics!!
-        val pxWidth = displayMetrics.widthPixels
-        val width = pxWidth / displayMetrics.density
-        val layoutParams: ViewGroup.LayoutParams = holder.trendContainer.layoutParams
-        layoutParams.width = (width / 0.9).toInt()
-        //layoutParams.height = (width / 0.9).toInt()
-        holder.trendContainer.layoutParams = layoutParams
-        holder.imageMovieTrend.load(ImageUrlBase+movie?.backdropPath)
-
+        holder.imageMovieTrend.load(ImageUrlBase+movie?.posterPath){
+            transformations(CircleCropTransformation())
+            crossfade(true)
+            crossfade(1000)
+        }
+            holder.movieTitle.text = movie?.title
     }
     override fun getItemCount(): Int {
         if(movies!=null)
@@ -50,7 +44,8 @@ class TrendingAdapter : RecyclerView.Adapter<TrendingAdapter.Holder>() {
     }
 
     class Holder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val imageMovieTrend:ImageView = itemView.findViewById(R.id.imageMovieTrend)
-        val trendContainer: ConstraintLayout = itemView.findViewById(R.id.trendContainer)
+        val binding=ItemTrendingBinding.bind(itemView)
+        val imageMovieTrend = binding.imageMovieTrend
+        val movieTitle = binding.movieTitle
     }
 }

@@ -1,5 +1,6 @@
 package com.hamdy.showtime.ui.ui.movies_details.repository
 
+import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.hamdy.showtime.ui.model.CastItem
@@ -22,6 +23,7 @@ class MoviesDetailsRepository {
 
     suspend fun getMoviesDetails(id:Int): MoviesDetailsResponse {
         val client= RetrofitClient.getInstance().create(MoviesService::class.java).getMoviesDetails(id,API_KEY)
+        client.isSuccessful
         return client.body()!!
     }
 

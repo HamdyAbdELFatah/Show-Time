@@ -30,14 +30,18 @@ class FavoriteFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        initViewPager2WithFragments()
-    }
-
-
-    private fun initViewPager2WithFragments() {
         val viewPager2: ViewPager2 = binding.viewPagerFavorite
+        viewPager2.isUserInputEnabled = false
         val adapter = FavoriteViewPagerAdapter(childFragmentManager, lifecycle)
         viewPager2.adapter = adapter
+        binding.moviesCategory.setOnClickListener {
+            viewPager2.currentItem = 0
+        }
+        binding.personCategory.setOnClickListener {
+            viewPager2.currentItem = 1
+        }
     }
+
+
 
 }

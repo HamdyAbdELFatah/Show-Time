@@ -3,14 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/trendContainer"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginLeft="4dp"
-    android:layout_marginRight="4dp">
+    android:layout_width="wrap_content"
+    android:layout_height="@dimen/_150sdp"
+    android:layout_marginLeft="@dimen/_4sdp"
+    android:layout_marginRight="@dimen/_4sdp">
 
     <ImageView
         android:id="@+id/imageMovieTrend"
-        android:layout_width="0dp"
+        android:layout_width="@dimen/_100sdp"
         android:layout_height="@dimen/_150sdp"
         android:adjustViewBounds="false"
         android:contentDescription="Trend"
@@ -19,18 +19,21 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
-        tools:srcCompat="@drawable/test" />
+        tools:srcCompat="@drawable/test4" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/btnPlayMovie"
+    <TextView
+        android:id="@+id/movieTitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
-        android:src="@drawable/ic_play"
-        app:backgroundTint="@color/colorAccent"
-        app:layout_constraintBottom_toBottomOf="@+id/imageMovieTrend"
+        android:fontFamily="@font/play_fair_display_bold"
+        android:gravity="center"
+        android:maxLines="2"
+        android:text="TextView"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_18ssp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageMovieTrend"
-        app:layout_constraintVertical_bias="0.39" />
+        app:layout_constraintStart_toStartOf="parent"
+        tools:text="DiCaprio" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

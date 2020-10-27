@@ -23,7 +23,7 @@ class PersonDetailsRepository {
         return client.body()?.profiles
     }
 
-    suspend fun getPersonKnownMovies(id: String?): List<KnownForItem?>? {
+    suspend fun getPersonKnownMovies(id: String?): List<SearchKnownForItem?>? {
         val client= RetrofitClient.getInstance().create(PersonsService::class.java).getPersonKnownMovies(id,API_KEY,"imdb_id")
         return client.body()?.personResults!![0]?.knownFor
     }

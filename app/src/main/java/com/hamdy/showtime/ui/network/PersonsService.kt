@@ -21,6 +21,8 @@ interface PersonsService {
     suspend fun getPersonKnownMovies(@Path("id") page: String?, @Query("api_key") key:String,
                                      @Query("external_source") external_source:String): Response<FindPersonResponse>
 
+    @GET("search/person?")
+    suspend fun getPersonsSearch(@Query("api_key") key:String,@Query("query") query:String): Response<SearchPersonResponse>
 
 
 }

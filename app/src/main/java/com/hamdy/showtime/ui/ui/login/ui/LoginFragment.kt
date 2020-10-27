@@ -82,7 +82,7 @@ class LoginFragment : Fragment() {
         var valid = true
         val email =binding.emailLogin
         val password =binding.password
-        if (mail.isEmpty() && !Patterns.EMAIL_ADDRESS.matcher(mail).matches()) {
+        if (mail.isEmpty() && Patterns.EMAIL_ADDRESS.matcher(mail).matches()) {
             valid = false
             email.error = "Email can't be empty"
         } else {
