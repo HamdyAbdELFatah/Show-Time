@@ -18,33 +18,33 @@ class HomeViewModel : ViewModel() {
     var listTrending= MutableLiveData<List<PopularResultsItem>>()
 
     init {
-        getPopular()
+        getMoviesCategory()
     }
 
-    private fun getPopular(){
+    private fun getMoviesCategory(){
 
         viewModelScope.launch(IO) {
            val list=homeRepository.getPopular()
             withContext(Main){
-                listPopular.postValue(list)
+                listPopular.postValue(list!!)
             }
         }
         viewModelScope.launch(IO) {
            val list=homeRepository.getTopRated()
             withContext(Main){
-                listTopRated.postValue(list)
+                listTopRated.postValue(list!!)
             }
         }
         viewModelScope.launch(IO) {
            val list=homeRepository.getUpComing()
             withContext(Main){
-                listUpComing.postValue(list)
+                listUpComing.postValue(list!!)
             }
         }
         viewModelScope.launch(IO) {
            val list=homeRepository.getTrending()
             withContext(Main){
-                listTrending.postValue(list)
+                listTrending.postValue(list!!)
             }
         }
 

@@ -22,7 +22,7 @@ class MoviesDetailsViewModel : ViewModel() {
         viewModelScope.launch(Dispatchers.IO) {
             val list = moviesDetailsRepository.getCastMovieList(id)
             withContext(Dispatchers.Main) {
-                listCastMovie.postValue(list)
+                listCastMovie.postValue(list!!)
             }
         }
     }

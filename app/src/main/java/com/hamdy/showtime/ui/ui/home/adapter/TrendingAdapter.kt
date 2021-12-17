@@ -33,9 +33,7 @@ class TrendingAdapter : RecyclerView.Adapter<TrendingAdapter.Holder>() {
             holder.movieTitle.text = movie?.title
     }
     override fun getItemCount(): Int {
-        if(movies!=null)
-            return movies!!.size
-        return 0
+            return movies?.size ?: 0
     }
 
     fun setTrends(movies: List<PopularResultsItem>) {

@@ -12,13 +12,12 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.hamdy.showtime.R
 import com.hamdy.showtime.databinding.MoviesItemBinding
-import com.hamdy.showtime.ui.model.PersonsResultsItem
 import com.hamdy.showtime.ui.model.PopularResultsItem
 import com.hamdy.showtime.ui.util.ImageUrlBase
 import kotlin.random.Random
 
 
-class PopularAdapter : RecyclerView.Adapter<PopularAdapter.Holder>() {
+class HomeCategoryMoviesAdapter : RecyclerView.Adapter<HomeCategoryMoviesAdapter.Holder>() {
     private var movies: List<PopularResultsItem>? = null
     private var action: Int? = null
     private var type: String? = null
@@ -82,7 +81,7 @@ class PopularAdapter : RecyclerView.Adapter<PopularAdapter.Holder>() {
         }
     }
 
-    fun setPopular(movies: List<PopularResultsItem>, action:Int) {
+    fun setMoviesData(movies: List<PopularResultsItem>, action:Int) {
         this.movies = movies
         this.action = action
         notifyDataSetChanged()

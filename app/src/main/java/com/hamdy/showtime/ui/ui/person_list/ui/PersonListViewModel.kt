@@ -28,6 +28,7 @@ class PersonListViewModel : ViewModel() {
     }
 
     private fun getPopular() {
+
         viewModelScope.launch(Dispatchers.Unconfined) {
             val response1 = personsRepository.getPopular(1)
             list.addAll(response1?.personsResults!!)

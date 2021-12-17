@@ -28,7 +28,7 @@
         android:fontFamily="@font/play_fair_display_bold"
         android:gravity="center"
         android:maxLines="2"
-        android:text="TextView"
+        android:text=""
         android:textColor="@color/white"
         android:textSize="@dimen/_18ssp"
         app:layout_constraintBottom_toBottomOf="parent"

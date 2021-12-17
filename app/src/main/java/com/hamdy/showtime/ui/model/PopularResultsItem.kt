@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName
 data class PopularResultsItem(
 
 
-  @field:SerializedName("overview")
+    @field:SerializedName("overview")
     val overview: String? = null,
 
     @field:SerializedName("original_language")

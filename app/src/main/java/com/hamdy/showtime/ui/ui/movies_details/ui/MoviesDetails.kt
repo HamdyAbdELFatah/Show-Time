@@ -8,9 +8,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -26,6 +26,7 @@ class MoviesDetails : Fragment() {
     private lateinit var binding: FragmentMoviesDetailsBinding
     private var sharedIdValue = false
     private var favorite = false
+
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,17 +36,25 @@ class MoviesDetails : Fragment() {
 //        sharedElementReturnTransition = transition
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container : ViewGroup?, savedInstanceState: Bundle?): View? {
-        moviesDetailsViewModel = ViewModelProvider(this).get(MoviesDetailsViewModel::class.java)
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        moviesDetailsViewModel = ViewModelProvider(this)[MoviesDetailsViewModel::class.java]
         binding = FragmentMoviesDetailsBinding.inflate(inflater, container, false)
         return binding.root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        activity?.window?.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
-        val posterPath= arguments?.get("posterPath").toString()
-        val id= arguments?.getInt("id")!!
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        activity?.window?.setFlags(
+            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
+            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
+        )
+        val posterPath = arguments?.get("posterPath").toString()
+        val id = arguments?.getInt("id")!!
+
 //        val position= arguments?.getInt("position")!!
 //        val type= arguments?.getString("type")!!
         moviesDetailsViewModel.getCastMovieList(id)
@@ -54,44 +63,50 @@ class MoviesDetails : Fragment() {
 
         binding.moviePosterImage.load(ImageUrlBase + posterPath)
         binding.moviesBackGroundImage.load(ImageUrlBase + posterPath)
-        val castAdapter=CastAdapter()
-        binding.castRecyclerView.adapter= castAdapter
-        binding.castRecyclerView.layoutManager=LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+
+        val castAdapter = CastAdapter()
+        binding.castRecyclerView.adapter = castAdapter
+
+        binding.castRecyclerView.layoutManager =
+            LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+
         binding.favoriteIcon.setOnClickListener {
             val sharedPreferences: SharedPreferences =
                 context?.getSharedPreferences("ShowTimeAuth", Context.MODE_PRIVATE)!!
-            sharedIdValue = sharedPreferences.getBoolean("login",false)
-            if(sharedIdValue){
-                moviesDetailsViewModel.setFavorite(id,posterPath,favorite)
-                if(favorite)
+            sharedIdValue = sharedPreferences.getBoolean("login", false)
+            if (sharedIdValue) {
+                moviesDetailsViewModel.setFavorite(id, posterPath, favorite)
+                if (favorite)
                     binding.favoriteIcon.setImageResource(R.drawable.ic_favorite)
                 else
                     binding.favoriteIcon.setImageResource(R.drawable.ic_favorite_choosed)
-                favorite=!favorite
-            }else {
+                favorite = !favorite
+            } else {
                 it.findNavController()
                     .navigate(R.id.action_moviesDetails_to_loginFragment, null, null, null)
+                Toast.makeText(context, "You Should Login", Toast.LENGTH_SHORT).show()
             }
         }
+
         moviesDetailsViewModel.listCastMovie.observe(viewLifecycleOwner, {
             castAdapter.setCast(it)
         })
         moviesDetailsViewModel.favorite.observe(viewLifecycleOwner, {
-            favorite=it
-            if(it)
+            favorite = it
+            if (it)
                 binding.favoriteIcon.setImageResource(R.drawable.ic_favorite_choosed)
             else
                 binding.favoriteIcon.setImageResource(R.drawable.ic_favorite)
         })
 
-        moviesDetailsViewModel.movieDetails.observe(viewLifecycleOwner, Observer {
+        moviesDetailsViewModel.movieDetails.observe(viewLifecycleOwner, {
             binding.movieName.text = it?.title
             binding.overviewText.text = it?.overview
             var isTextViewClicked = true
             if (binding.overviewText.lineCount > 3)
                 binding.seeMoreImage.visibility = View.VISIBLE
             binding.seeMoreImage.setOnClickListener {
-                isTextViewClicked = if(isTextViewClicked){
+                isTextViewClicked = if (isTextViewClicked) {
                     binding.overviewText.maxLines = Integer.MAX_VALUE
                     binding.seeMoreImage.setImageResource(R.drawable.ic_arrow_up)
                     false
@@ -108,7 +123,7 @@ class MoviesDetails : Fragment() {
                 temp += if (i != genres.last())
                     "${i?.name} / "
                 else
-                       "${i?.name}"
+                    "${i?.name}"
             }
             binding.movieCategory.text = temp
             val time = it.runtime!!

@@ -16,31 +16,38 @@ class PersonListFragment : Fragment() {
 
     private lateinit var viewModel: PersonListViewModel
     private lateinit var binding: PersonListFragmentBinding
-    lateinit var dialog: Dialog
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(PersonListViewModel::class.java)
-        createDialog()
-        viewModel.myStart(dialog)
+        viewModel = ViewModelProvider(this)[PersonListViewModel::class.java]
+        viewModel.myStart(createDialog())
 
     }
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        binding=PersonListFragmentBinding.inflate(inflater, container, false)
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        binding = PersonListFragmentBinding.inflate(inflater, container, false)
         return binding.root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        val adapter= PopularPersonAdapter()
-        binding.personListRecyclerView.adapter= adapter
-        viewModel.listPersons.observe(viewLifecycleOwner, Observer {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val adapter = PopularPersonAdapter()
+
+        binding.personListRecyclerView.adapter = adapter
+        viewModel.listPersons.observe(viewLifecycleOwner) {
             adapter.setPopular(it)
-        })
+        }
     }
-    private fun createDialog(){
-        dialog =  Dialog(requireContext())
+
+    private fun createDialog(): Dialog {
+        val dialog = Dialog(requireContext())
         dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+        dialog.setCancelable(false)
         dialog.setContentView(R.layout.loading_bar)
         dialog.show()
+        return dialog
     }
 }

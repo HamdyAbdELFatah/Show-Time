@@ -21,7 +21,7 @@
             android:layout_marginTop="@dimen/_8sdp"
             android:text="Upcoming"
             android:textColor="@color/white"
-            android:textSize="@dimen/_14ssp"
+            android:textSize="@dimen/title_category_text_size"
             app:layout_constraintStart_toStartOf="@+id/textView"
             app:layout_constraintTop_toBottomOf="@+id/hightRateRecyclerView" />
 
@@ -31,7 +31,7 @@
             android:layout_height="wrap_content"
             android:text="See All"
             android:textColor="@color/colorAccent"
-            android:textSize="@dimen/_12ssp"
+            android:textSize="@dimen/show_all_text_size"
             app:layout_constraintEnd_toEndOf="@+id/seeAllTopRated"
             app:layout_constraintTop_toTopOf="@+id/textView5" />
 
@@ -61,7 +61,7 @@
             android:layout_marginTop="@dimen/_8sdp"
             android:text="High Rate"
             android:textColor="@color/white"
-            android:textSize="@dimen/_14ssp"
+            android:textSize="@dimen/title_category_text_size"
             app:layout_constraintStart_toStartOf="@+id/textView"
             app:layout_constraintTop_toBottomOf="@+id/popularRecyclerView" />
 
@@ -71,7 +71,7 @@
             android:layout_height="wrap_content"
             android:text="See All"
             android:textColor="@color/colorAccent"
-            android:textSize="@dimen/_12ssp"
+            android:textSize="@dimen/show_all_text_size"
             app:layout_constraintEnd_toEndOf="@+id/seeAllPopular"
             app:layout_constraintTop_toTopOf="@+id/textView3" />
 
@@ -93,7 +93,7 @@
             android:layout_marginTop="@dimen/_8sdp"
             android:text="Popular"
             android:textColor="@color/white"
-            android:textSize="@dimen/_14ssp"
+            android:textSize="@dimen/title_category_text_size"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/trendingRecyclerview" />
 
@@ -102,10 +102,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
-            android:layout_marginRight="16dp"
             android:text="See All"
             android:textColor="@color/colorAccent"
-            android:textSize="@dimen/_12ssp"
+            android:textSize="@dimen/show_all_text_size"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/textView" />
 
