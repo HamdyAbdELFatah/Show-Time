@@ -19,6 +19,7 @@ class FavoriteMoviesViewModel : ViewModel() {
             val favorite=moviesDetailsRepository.getFavorite()
             withContext(Dispatchers.Main){
                 listFavoriteMovie.postValue(favorite)
+
             }
         }
     }

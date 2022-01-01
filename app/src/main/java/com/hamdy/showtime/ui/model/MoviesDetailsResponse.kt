@@ -19,8 +19,8 @@ data class MoviesDetailsResponse(
 	@field:SerializedName("backdrop_path")
 	val backdropPath: String? = null,
 
-	@field:SerializedName("revenue")
-	val revenue: Int? = null,
+//	@field:SerializedName("revenue")
+//	val revenue: Int? = null,
 
 	@field:SerializedName("genres")
 	val genres: List<GenresItem?>? = null,

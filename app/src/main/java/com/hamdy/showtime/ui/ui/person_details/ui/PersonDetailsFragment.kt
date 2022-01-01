@@ -3,15 +3,14 @@ package com.hamdy.showtime.ui.ui.person_details.ui
 import android.content.Context
 import android.content.SharedPreferences
 import android.content.res.Resources
-import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.*
-import androidx.annotation.RequiresApi
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import coil.load
 import com.google.android.material.appbar.AppBarLayout
 import com.hamdy.showtime.R
@@ -23,76 +22,96 @@ import kotlin.math.abs
 
 
 class PersonDetailsFragment : Fragment(), AppBarLayout.OnOffsetChangedListener {
-    private lateinit var binding:PersonDetailsFragmentBinding
+    private lateinit var binding: PersonDetailsFragmentBinding
     private lateinit var viewModel: PersonDetailsViewModel
-    private  val TAG = "PersonDetailsFragment"
-    private var castNameTextSize =0f
-    private var castNickTextSize =0f
+    private val TAG = "PersonDetailsFragment"
+    private var castNameTextSize = 0f
+    private var castNickTextSize = 0f
     private var sharedIdValue = false
     private var favorite = false
     private var personId = 0
+    private var stoppercentage = 0F
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         activity?.window?.clearFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
-        viewModel =  ViewModelProvider(this).get(PersonDetailsViewModel::class.java)
-        personId= arguments?.getInt("id")!!
+        viewModel = ViewModelProvider(this)[PersonDetailsViewModel::class.java]
+        personId = arguments?.getInt("id")!!
         viewModel.getPersonDetails(personId)
         viewModel.getPersonImage(personId)
         viewModel.getFavorite(personId)
-
     }
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         binding = PersonDetailsFragmentBinding.inflate(inflater, container, false)
         return binding.root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        val posterPath=arguments?.getString("posterPath")
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val posterPath = arguments?.getString("posterPath")
         binding.appBarImage.load(ImageUrlBase + posterPath)
         binding.appBarImage.requestLayout()
         binding.viewDark.requestLayout()
-
         castNameTextSize = binding.castName.textSize
         castNickTextSize = binding.castNickName.textSize
+//        outRect.top = myContext.resources.getDimensionPixelSize(R.dimen._100sdp)
 
         binding.appbar.addOnOffsetChangedListener(this)
+
         binding.favoriteImage.setOnClickListener {
             val sharedPreferences: SharedPreferences =
                 context?.getSharedPreferences("ShowTimeAuth", Context.MODE_PRIVATE)!!
-            sharedIdValue = sharedPreferences.getBoolean("login",false)
-            if(sharedIdValue){
-                viewModel.setFavorite(personId, posterPath!!,favorite)
-                if(favorite)
+            sharedIdValue = sharedPreferences.getBoolean("login", false)
+            if (sharedIdValue) {
+                viewModel.setFavorite(personId, posterPath!!, favorite)
+                if (favorite)
                     binding.favoriteImage.setImageResource(R.drawable.ic_favorite)
                 else
                     binding.favoriteImage.setImageResource(R.drawable.ic_favorite_choosed)
-                favorite=!favorite
-            }else {
+                favorite = !favorite
+                it.findNavController().previousBackStackEntry?.savedStateHandle?.set(
+                    "favoriteBack",
+                    personId.toString() to favorite
+                )
+            } else {
                 it.findNavController()
                     .navigate(R.id.action_navigation_person_to_loginFragment, null, null, null)
             }
         }
+
         val knownMoviesAdapter = KnownMoviesAdapter()
         binding.knownRecyclerView.adapter = knownMoviesAdapter
-        val container =binding.bottomSheetContainer
+        val container = binding.bottomSheetContainer
         val personPhotosAdapter = PersonPhotosAdapter()
         container.photoRecyclerView.adapter = personPhotosAdapter
         viewModel.favorite.observe(viewLifecycleOwner, {
-            favorite=it
-            if(it)
+            favorite = it
+            if (it)
                 binding.favoriteImage.setImageResource(R.drawable.ic_favorite_choosed)
             else
                 binding.favoriteImage.setImageResource(R.drawable.ic_favorite)
+            findNavController().previousBackStackEntry?.savedStateHandle?.set(
+                "favoriteBack",
+                personId.toString() to it
+            )
+
         })
-        viewModel.personDetails.observe(viewLifecycleOwner , {
-            container.overviewText.text=it.biography
+
+        viewModel.personDetails.observe(viewLifecycleOwner, {
+            container.overviewText.text = it.biography
             var isTextViewClicked = true
-            if (container.overviewText.lineCount > 4){
+            if (container.overviewText.lineCount > 4) {
                 container.seeMoreImage.visibility = View.VISIBLE
             }
             container.seeMoreImage.setOnClickListener {
-                isTextViewClicked = if(isTextViewClicked){
+                isTextViewClicked = if (isTextViewClicked) {
                     container.overviewText.maxLines = Integer.MAX_VALUE
                     container.seeMoreImage.setImageResource(R.drawable.ic_arrow_up)
                     false
@@ -102,17 +121,20 @@ class PersonDetailsFragment : Fragment(), AppBarLayout.OnOffsetChangedListener {
                     true
                 }
             }
-            container.bornDate.text=it.birthday
-            container.bornPlace.text=it.placeOfBirth
-            val name=it.name?.split(" ")
-            binding.castName.text= name?.get(0) ?: ""
-            binding.castNickName.text= name?.get(1) ?: ""
+            container.bornDate.text = it.birthday
+            container.bornPlace.text = it.placeOfBirth
+            val name = it.name?.split(" ")
+            binding.castName.text = name?.get(0) ?: ""
+            if (name?.size ?: 0 > 1)
+                binding.castNickName.text = name?.get(1) ?: ""
 
         })
-        viewModel.listPersons.observe(viewLifecycleOwner , {
+
+        viewModel.listPersons.observe(viewLifecycleOwner, {
             personPhotosAdapter.setPerson(it)
         })
-        viewModel.listKnown.observe(viewLifecycleOwner , {
+
+        viewModel.listKnown.observe(viewLifecycleOwner, {
             knownMoviesAdapter.setMovies(it)
         })
     }
@@ -122,11 +144,11 @@ class PersonDetailsFragment : Fragment(), AppBarLayout.OnOffsetChangedListener {
         EXPANDED, COLLAPSED, IDLE
     }
 
-
     private var mCurrentState = State.IDLE
 
-    @RequiresApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
     override fun onOffsetChanged(appBarLayout: AppBarLayout?, offset: Int) {
+        // expand  offset   0     525  84  441
+        //collapse offset -441     84  84  441
         val toolBarHeight: Int = binding.toolbar.measuredHeight
         val appBarHeight: Int = appBarLayout!!.measuredHeight
         val appBarWidth: Int = appBarLayout.measuredWidth
@@ -136,26 +158,40 @@ class PersonDetailsFragment : Fragment(), AppBarLayout.OnOffsetChangedListener {
             TAG,
             "onOffsetChanged: offset $offset     ${appBarHeight + offset}  $toolBarHeight  $maxScroll"
         )
-        Log.d(TAG, "onOffsetChanged: maxScroll $maxScroll   percentage  $percentage")
+//        Log.d(TAG, "onOffsetChanged: maxScroll $maxScroll   percentage  $percentage")
         val density = Resources.getSystem().displayMetrics.density
+
 //        view?.layoutParams?.height = appBarHeight+offset * density.toInt()
         val plus = 20
 //        plus = if(percentage>0.5f) (30*density).toInt() else 0
 
         binding.appBarImage.apply {
-            layoutParams.height= (appBarHeight+offset + percentage * plus * density).toInt()
-            layoutParams.width= (appBarWidth+offset + percentage * plus * density).toInt()
+            layoutParams.height = (appBarHeight + offset + percentage * plus * density).toInt()
+            layoutParams.width = (appBarWidth + offset + percentage * (plus + 5) * density).toInt()
         }
 //        binding.viewDark.apply {
 //            layoutParams.height= (appBarHeight+offset + percentage * plus * density).toInt()
 //            layoutParams.width= (appBarHeight+offset + percentage * plus * density).toInt()
 //        }
+        if (binding.castName.measuredHeight > toolBarHeight / 2 || percentage < stoppercentage ) {
+            binding.castName.textSize =
+                castNameTextSize - (castNameTextSize * percentage)
+            binding.castNickName.textSize =
+                castNickTextSize - (percentage * (castNickTextSize))
+            stoppercentage = percentage
+        }else if (percentage < stoppercentage){
 
-        binding.castName.textSize=castNameTextSize-(percentage*23)
-        binding.castNickName.textSize=castNickTextSize-(percentage*23)
-
+        }
+//        Expand Dark 36.0 54.0
+//        collap Dark 36.0 0.0
+        Log.d(
+            TAG,
+            "onOffsetChanged: offset Dark" +
+                    " $castNameTextSize ${(percentage * (castNameTextSize))}" +
+                    " ${binding.castName.textSize}"
+        )
         val paramsImage = binding.appBarImage.layoutParams as (ConstraintLayout.LayoutParams)
-        paramsImage.horizontalBias = 1-(1.0f - percentage)/2
+        paramsImage.horizontalBias = 1 - (1.0f - percentage) / 2
         paramsImage.marginEnd = (50 * percentage * density).toInt()
         binding.appBarImage.layoutParams = paramsImage
 //        binding.knownText.alpha=1-percentage
@@ -169,7 +205,7 @@ class PersonDetailsFragment : Fragment(), AppBarLayout.OnOffsetChangedListener {
 //        binding.viewDark.layoutParams = paramsViewDark
 
         val paramsCastName = binding.castName.layoutParams as (ConstraintLayout.LayoutParams)
-        paramsCastName.horizontalBias = (1.0f - percentage)/2
+        paramsCastName.horizontalBias = (1.0f - percentage) / 2
         binding.castName.layoutParams = paramsCastName
 
         when {
@@ -178,10 +214,6 @@ class PersonDetailsFragment : Fragment(), AppBarLayout.OnOffsetChangedListener {
                     Log.d(TAG, "onOffsetChanged:  ${State.EXPANDED}")
                 }
                 mCurrentState = State.EXPANDED
-//                ObjectAnimator.ofFloat(binding.castName, "translationX", -50f).apply {
-//                    duration = 500
-//                    start()
-//                }
             }
             abs(offset) >= appBarLayout.totalScrollRange -> {
                 if (mCurrentState != State.COLLAPSED) {

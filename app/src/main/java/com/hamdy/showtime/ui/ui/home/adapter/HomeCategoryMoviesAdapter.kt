@@ -10,6 +10,7 @@ import androidx.core.os.bundleOf
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
+import coil.transform.RoundedCornersTransformation
 import com.hamdy.showtime.R
 import com.hamdy.showtime.databinding.MoviesItemBinding
 import com.hamdy.showtime.ui.model.PopularResultsItem
@@ -20,24 +21,27 @@ import kotlin.random.Random
 class HomeCategoryMoviesAdapter : RecyclerView.Adapter<HomeCategoryMoviesAdapter.Holder>() {
     private var movies: List<PopularResultsItem>? = null
     private var action: Int? = null
-    private var type: String? = null
     var context: Context? = null
     private var lastPosition = -1
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
-        context=parent.context
+        context = parent.context
         return Holder(
             LayoutInflater.from(context).inflate(R.layout.movies_item, parent, false)
         )
     }
+
     override fun onBindViewHolder(holder: Holder, position: Int) {
-        val movie= movies?.get(position)
-        holder.moviesName.text=movie?.title
+        val movie = movies?.get(position)
+        holder.movieName.text = movie?.title
+        holder.moviesDate.text = movie?.releaseDate
         //holder.companyName.text=movie?.
-        holder.rateText.text=movie?.voteAverage.toString()
-        holder.movieImage.load(ImageUrlBase + movie?.posterPath){
+        holder.rateText.text = movie?.voteAverage.toString()
+        holder.movieImage.load(ImageUrlBase + movie?.posterPath) {
             crossfade(true)
             crossfade(500)
+            transformations(RoundedCornersTransformation(20f))
+
         }
 //        ViewCompat.setTransitionName(holder.movieImage, "${type}Image$position")
 //        ViewCompat.setTransitionName(holder.moviesName, "${type}Text$position")
@@ -52,12 +56,13 @@ class HomeCategoryMoviesAdapter : RecyclerView.Adapter<HomeCategoryMoviesAdapter
             bundle.putInt("id", movie?.id!!)
 //            bundle.putInt("position", position)
 //            bundle.putString("type", type)
-            it.findNavController().navigate(action!!,bundle,null,null)
+            it.findNavController().navigate(action!!, bundle, null, null)
         }
 
     }
+
     override fun getItemCount(): Int {
-        if(movies!=null)
+        if (movies != null)
             return movies!!.size
         return 0
     }
@@ -81,7 +86,7 @@ class HomeCategoryMoviesAdapter : RecyclerView.Adapter<HomeCategoryMoviesAdapter
         }
     }
 
-    fun setMoviesData(movies: List<PopularResultsItem>, action:Int) {
+    fun setMoviesData(movies: List<PopularResultsItem>, action: Int) {
         this.movies = movies
         this.action = action
         notifyDataSetChanged()
@@ -97,8 +102,10 @@ class HomeCategoryMoviesAdapter : RecyclerView.Adapter<HomeCategoryMoviesAdapter
         private val binding = MoviesItemBinding.bind(itemView)
         val movieContainer = binding.movieContainer
         val movieImage = binding.movieImage
+
         //val companyName = binding.companyName
-        val moviesName = binding.moviesName
+        val movieName = binding.movieName
+        val moviesDate = binding.moviesDate
         val rateText = binding.rateText
 
     }

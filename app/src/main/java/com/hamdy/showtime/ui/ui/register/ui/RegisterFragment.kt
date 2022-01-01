@@ -27,8 +27,8 @@ class RegisterFragment : Fragment() {
         return binding.root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this).get(RegisterViewModel::class.java)
         binding.Signin.setOnClickListener {
             it.findNavController().navigate(R.id.action_registerFragment_to_loginFragment,null,null,null)

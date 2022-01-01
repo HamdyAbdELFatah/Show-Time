@@ -17,7 +17,8 @@ class SearchMoviesViewModel : ViewModel() {
         viewModelScope.launch(Dispatchers.IO) {
             val response=moviesDetailsRepository.getSearchMovies(query)
             withContext(Dispatchers.Main){
-                listSearchMovie.postValue(response.results)
+                listSearchMovie.postValue(response.results!!)
             }
         }
-    }}
+    }
+}

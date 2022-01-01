@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.hamdy.showtime.ui.model.CastItem
 import com.hamdy.showtime.ui.model.MoviesDetailsResponse
+import com.hamdy.showtime.ui.model.ResultsVideoItem
 import com.hamdy.showtime.ui.ui.movies_details.repository.MoviesDetailsRepository
 import com.hamdy.showtime.ui.ui.person_details.repository.PersonDetailsRepository
 import kotlinx.coroutines.*
@@ -13,23 +14,27 @@ import kotlinx.coroutines.Dispatchers.Main
 class MoviesDetailsViewModel : ViewModel() {
     private val TAG = "AllMoviesViewModel"
     private val moviesDetailsRepository= MoviesDetailsRepository()
-    var listCastMovie = MutableLiveData<List<CastItem?>>()
+    var listCastMovie = MutableLiveData<List<CastItem?>?>()
     var favorite = MutableLiveData<Boolean>()
+    var trailerId = MutableLiveData<ResultsVideoItem?>()
     var movieDetails = MutableLiveData<MoviesDetailsResponse?>()
 
 
     fun getCastMovieList(id:Int) {
         viewModelScope.launch(Dispatchers.IO) {
             val list = moviesDetailsRepository.getCastMovieList(id)
-            withContext(Dispatchers.Main) {
-                listCastMovie.postValue(list!!)
+            val trailer = moviesDetailsRepository.getTrailer(id)
+
+            withContext(Main) {
+                listCastMovie.postValue(list)
+                trailerId.postValue(trailer)
             }
         }
     }
     fun getMoviesDetails(id:Int) {
         viewModelScope.launch(Dispatchers.IO) {
             val list = moviesDetailsRepository.getMoviesDetails(id)
-            withContext(Dispatchers.Main) {
+            withContext(Main) {
                 movieDetails.postValue(list)
             }
         }

@@ -11,7 +11,7 @@ data class SearchPersonResponse(
 	val totalPages: Int? = null,
 
     @field:SerializedName("results")
-	val results: List<SearchResultsItem?>? = null,
+	val results: List<ResultsItem?>? = null,
 
     @field:SerializedName("total_results")
 	val totalResults: Int? = null
@@ -29,7 +29,7 @@ data class ResultsItem(
 	val popularity: Double? = null,
 
     @field:SerializedName("known_for")
-	val knownFor: List<SearchKnownForItem?>? = null,
+	val knownFor: List<KnownForItem?>? = null,
 
     @field:SerializedName("name")
 	val name: String? = null,

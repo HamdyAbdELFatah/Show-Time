@@ -1,5 +1,6 @@
 package com.hamdy.showtime.ui.ui.favorite.ui
 
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -28,20 +29,23 @@ class FavoriteFragment : Fragment() {
         return binding.root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         val viewPager2: ViewPager2 = binding.viewPagerFavorite
         viewPager2.isUserInputEnabled = false
         val adapter = FavoriteViewPagerAdapter(childFragmentManager, lifecycle)
         viewPager2.adapter = adapter
         binding.moviesCategory.setOnClickListener {
             viewPager2.currentItem = 0
+            binding.moviesCategory.setTextColor(Color.parseColor("#D81F26"))
+            binding.personCategory.setTextColor(Color.parseColor("#FFFFFF"))
+
         }
         binding.personCategory.setOnClickListener {
             viewPager2.currentItem = 1
+            binding.personCategory.setTextColor(Color.parseColor("#D81F26"))
+            binding.moviesCategory.setTextColor(Color.parseColor("#FFFFFF"))
+
         }
     }
-
-
-
 }

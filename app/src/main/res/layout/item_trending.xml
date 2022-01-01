@@ -1,39 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.jackandphantom.carouselrecyclerview.view.ReflectionViewContainer xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/trendContainer"
     android:layout_width="wrap_content"
-    android:layout_height="@dimen/_150sdp"
-    android:layout_marginLeft="@dimen/_4sdp"
-    android:layout_marginRight="@dimen/_4sdp">
+    android:layout_height="wrap_content"
+    app:reflect_gap="0dp"
+    app:reflect_relativeDepth="0.5">
 
     <ImageView
         android:id="@+id/imageMovieTrend"
         android:layout_width="@dimen/_100sdp"
-        android:layout_height="@dimen/_150sdp"
-        android:adjustViewBounds="false"
-        android:contentDescription="Trend"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
-        tools:srcCompat="@drawable/test4" />
-
-    <TextView
-        android:id="@+id/movieTitle"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/play_fair_display_bold"
-        android:gravity="center"
-        android:maxLines="2"
-        android:text=""
-        android:textColor="@color/white"
-        android:textSize="@dimen/_18ssp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:text="DiCaprio" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:layout_height="@dimen/_140sdp"
+        android:scaleType="fitXY"
+        android:src="@drawable/test" />
+</com.jackandphantom.carouselrecyclerview.view.ReflectionViewContainer>

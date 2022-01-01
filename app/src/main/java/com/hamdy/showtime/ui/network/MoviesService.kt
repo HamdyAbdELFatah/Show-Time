@@ -24,12 +24,16 @@ interface MoviesService {
     suspend fun getCastMovieList(@Path("id") page:Int,@Query("api_key") key:String): Response<CastResponse>
 
     @GET("movie/{id}}/videos?")
-    suspend fun getTrailer(@Path("id") page:Int,@Query("api_key") key:String): Response<TrailerResponse>
+    suspend fun getTrailer(@Path("id") id:Int,@Query("api_key") key:String): Response<VideoResponse>
 
     @GET("movie/{id}?")
     suspend fun getMoviesDetails(@Path("id") page:Int,@Query("api_key") key:String): Response<MoviesDetailsResponse>
 
     @GET("search/movie?")
     suspend fun getMoviesSearch(@Query("api_key") key:String,@Query("query") query:String): Response<SearchMoviesResponse>
+
+    @GET("search/person?")
+    suspend fun getPersonsSearch(@Query("api_key") key:String,@Query("query") query:String): Response<SearchPersonResponse>
+
 
 }

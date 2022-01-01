@@ -10,7 +10,7 @@
     android:layout_marginBottom="@dimen/_4sdp">
 
     <androidx.cardview.widget.CardView
-        android:layout_width="@dimen/_155sdp"
+        android:layout_width="@dimen/_120sdp"
         android:layout_height="wrap_content"
         app:cardBackgroundColor="@color/colorPrimary"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -27,7 +27,8 @@
             <ImageView
                 android:id="@+id/movieImage"
                 android:layout_width="0dp"
-                android:layout_height="@dimen/_230sdp"
+                android:layout_height="@dimen/_183sdp"
+                app:layout_constraintBottom_toTopOf="@+id/nameContainer"
                 app:layout_constraintDimensionRatio=""
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
@@ -35,26 +36,13 @@
                 app:layout_constraintTop_toTopOf="parent"
                 tools:srcCompat="@drawable/test" />
 
-            <TextView
-                android:id="@+id/moviesName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
-                android:maxLines="3"
-                android:text="TextView"
-                android:textColor="@color/white"
-                android:textSize="@dimen/_14sdp"
-                android:visibility="gone"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/movieImage"
-                app:layout_constraintTop_toBottomOf="@+id/movieImage" />
-
             <ImageView
                 android:id="@+id/imageView2"
-                android:layout_width="@dimen/_48sdp"
-                android:layout_height="@dimen/_48sdp"
+                android:layout_width="@dimen/_32sdp"
+                android:layout_height="@dimen/_32sdp"
                 android:scaleType="fitStart"
+                android:layout_marginTop="@dimen/_4sdp"
+                android:layout_marginRight="@dimen/_4sdp"
                 app:layout_constraintBottom_toBottomOf="@+id/movieImage"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
@@ -69,11 +57,44 @@
                 android:layout_height="wrap_content"
                 android:text="9.5"
                 android:textColor="@color/black"
-                android:textSize="@dimen/_14sdp"
+                android:textSize="@dimen/_9sdp"
                 app:layout_constraintBottom_toBottomOf="@+id/imageView2"
                 app:layout_constraintEnd_toEndOf="@+id/imageView2"
                 app:layout_constraintStart_toStartOf="@+id/imageView2"
                 app:layout_constraintTop_toTopOf="@+id/imageView2" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/nameContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
+
+                <TextView
+                    android:id="@+id/moviesDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_marginTop="@dimen/_2sdp"
+                    android:text="0"
+                    android:textColor="@color/offWhite"
+                    android:textSize="@dimen/_10sdp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/movieName"
+                    app:layout_constraintTop_toBottomOf="@+id/movieName" />
+
+                <TextView
+                    android:id="@+id/movieName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/play_fair_display_bold"
+                    android:maxLines="1"
+                    android:text="leonardo dicaprio"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_14sdp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>

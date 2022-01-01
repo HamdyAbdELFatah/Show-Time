@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -11,13 +12,11 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearSnapHelper
-import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.SnapHelper
 import com.hamdy.showtime.R
 import com.hamdy.showtime.databinding.FragmentHomeBinding
 import com.hamdy.showtime.ui.ui.home.adapter.HomeCategoryMoviesAdapter
 import com.hamdy.showtime.ui.ui.home.adapter.TrendingAdapter
-import com.hamdy.showtime.ui.util.CenterZoomLayoutManager
 import kotlinx.android.synthetic.main.fragment_home.*
 
 
@@ -34,13 +33,20 @@ class HomeFragment : Fragment(), View.OnClickListener {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
         return binding.root
     }
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        activity?.window?.clearFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
+
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val helper: SnapHelper = LinearSnapHelper()
+        activity?.window?.clearFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
 
-        binding.trendingRecyclerview.layoutManager =
-            CenterZoomLayoutManager(context, RecyclerView.HORIZONTAL, false)
+        val trendingRecyclerview = binding.trendingRecyclerview
+
+
         binding.popularRecyclerView.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         binding.upcomingRecyclerView.layoutManager =
@@ -55,11 +61,16 @@ class HomeFragment : Fragment(), View.OnClickListener {
         val adapterPopular = HomeCategoryMoviesAdapter()
         val upComingAdapter = HomeCategoryMoviesAdapter()
 
-        binding.trendingRecyclerview.adapter = adapterTrending
         binding.popularRecyclerView.adapter = adapterPopular
         binding.hightRateRecyclerView.adapter = topRatedAdapter
         binding.upcomingRecyclerView.adapter = upComingAdapter
-
+        trendingRecyclerview.adapter = adapterTrending
+        trendingRecyclerview.set3DItem(true)
+        trendingRecyclerview.setInfinite(true)
+//        trendingRecyclerview.setAlpha(true)
+//        trendingRecyclerview.setFlat(true)
+        val carouselLayoutManager = trendingRecyclerview.getCarouselLayoutManager()
+        val currentlyCenterPosition = trendingRecyclerview.getSelectedPosition()
 
         homeViewModel.listTrending.observe(viewLifecycleOwner, {
             adapterTrending.setTrends(it)

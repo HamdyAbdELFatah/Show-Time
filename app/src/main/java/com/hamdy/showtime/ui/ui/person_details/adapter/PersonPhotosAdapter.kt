@@ -9,7 +9,7 @@ import android.view.animation.ScaleAnimation
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.hamdy.showtime.R
-import com.hamdy.showtime.databinding.PersonsItemBinding
+import com.hamdy.showtime.databinding.PersonsGalleryBinding
 import com.hamdy.showtime.ui.model.ProfilesItem
 import com.hamdy.showtime.ui.util.ImageUrlBase
 import kotlin.random.Random
@@ -24,7 +24,7 @@ class PersonPhotosAdapter : RecyclerView.Adapter<PersonPhotosAdapter.Holder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
         context=parent.context
         return Holder(
-            LayoutInflater.from(context).inflate(R.layout.persons_item, parent, false)
+            LayoutInflater.from(context).inflate(R.layout.persons_gallery, parent, false)
         )
     }
     override fun onBindViewHolder(holder: Holder, position: Int) {
@@ -72,7 +72,7 @@ class PersonPhotosAdapter : RecyclerView.Adapter<PersonPhotosAdapter.Holder>() {
     }*/
 
     class Holder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val binding = PersonsItemBinding.bind(itemView)
+        private val binding = PersonsGalleryBinding.bind(itemView)
         val movieImage = binding.personImage
     }
 }

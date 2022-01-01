@@ -20,38 +20,41 @@ class CastAdapter : RecyclerView.Adapter<CastAdapter.Holder>() {
     var context: Context? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
-        context=parent.context
+        context = parent.context
         return Holder(
             LayoutInflater.from(context).inflate(R.layout.cast_item, parent, false)
         )
     }
+
     override fun onBindViewHolder(holder: Holder, position: Int) {
-        val cast= casts?.get(position)
-        holder.castCharacter.text=cast?.character
+        val cast = casts?.get(position)
+        holder.castCharacter.text = cast?.character
         //holder.companyName.text=movie?.
-        holder.castName.text=cast?.name
-        if(cast?.profilePath!=null)
-            holder.castImage.load(ImageUrlBase+ cast.profilePath){
+        holder.castName.text = cast?.name
+        if (cast?.profilePath != null)
+            holder.castImage.load(ImageUrlBase + cast.profilePath) {
                 crossfade(true)
                 crossfade(500)
                 transformations(CircleCropTransformation())
             }
         else
-            holder.castImage.load(R.drawable.not_found){
+            holder.castImage.load(R.drawable.not_found) {
                 crossfade(true)
                 crossfade(500)
                 transformations(CircleCropTransformation())
             }
         holder.castContainer.setOnClickListener {
-            val bundle = bundleOf("id" to cast?.id!!)
-            bundle.putString("posterPath", cast.profilePath!!)
-            it.findNavController().navigate(R.id.action_moviesDetails_to_navigation_person,bundle,null,null)
+            val bundle = bundleOf("id" to cast?.id)
+            bundle.putString("posterPath", cast?.profilePath)
+            it.findNavController()
+                .navigate(R.id.action_moviesDetails_to_navigation_person, bundle, null, null)
 
         }
 
     }
+
     override fun getItemCount(): Int {
-        if(casts!=null)
+        if (casts != null)
             return casts!!.size
         return 0
     }
@@ -65,6 +68,7 @@ class CastAdapter : RecyclerView.Adapter<CastAdapter.Holder>() {
         private val binding = CastItemBinding.bind(itemView)
         val castContainer = binding.castContainer
         val castImage = binding.castImage
+
         //val companyName = binding.companyName
         val castCharacter = binding.castCharacter
         val castName = binding.castName

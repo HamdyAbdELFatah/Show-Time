@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
+import coil.transform.BlurTransformation
 import com.hamdy.showtime.R
 import com.hamdy.showtime.databinding.FavoritePersonFragmentBinding
 import com.hamdy.showtime.ui.ui.favorite.adapter.FavoriteAdapter
@@ -32,8 +33,8 @@ class FavoritePersonFragment : Fragment() {
         return binding.root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this).get(FavoritePersonViewModel::class.java)
         createDialog()
         viewModel.getFavorite()
@@ -46,10 +47,7 @@ class FavoritePersonFragment : Fragment() {
         viewModel.listFavoriteMovie.observe(viewLifecycleOwner, {
             arr=it
             if(arr.isNotEmpty())
-            binding.backGroundFavorite.load(ImageUrlBase+arr[position].poster){
-                crossfade(true)
-                crossfade(1000)
-            }
+                setBackgroundImage(position)
             dialog.cancel()
             favoriteAdapter.setFavorite(it, R.id.action_navigation_favorite_to_navigation_person)
         })
@@ -59,11 +57,7 @@ class FavoritePersonFragment : Fragment() {
                 if (newState == RecyclerView.SCROLL_STATE_IDLE) {
                     val centerView = snapHelper.findSnapView(layoutManger)
                     val pos: Int = layoutManger.getPosition(centerView!!)
-                    position=pos
-                    binding.backGroundFavorite.load(ImageUrlBase+arr[pos].poster){
-                        crossfade(true)
-                        crossfade(1000)
-                    }
+                    setBackgroundImage(pos)
                     Log.e("Snapped Item Position:", "" + pos)
                 }
             }
@@ -75,5 +69,11 @@ class FavoritePersonFragment : Fragment() {
         dialog.setContentView(R.layout.loading_bar)
         dialog.show()
     }
-
+    private fun setBackgroundImage(position: Int) {
+        binding.backGroundFavorite.load(ImageUrlBase + arr[position].poster) {
+            crossfade(true)
+            crossfade(1000)
+            transformations(BlurTransformation(requireContext(), 25f))
+        }
+    }
 }

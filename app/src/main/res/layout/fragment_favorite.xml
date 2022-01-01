@@ -32,6 +32,7 @@
                 android:layout_marginStart="@dimen/_10sdp"
                 android:layout_marginLeft="@dimen/_10sdp"
                 android:text="Movies"
+                android:textColor="@color/colorAccent"
                 android:clickable="true"
                 android:background="?android:attr/selectableItemBackground"
                 android:textSize="@dimen/_20ssp"

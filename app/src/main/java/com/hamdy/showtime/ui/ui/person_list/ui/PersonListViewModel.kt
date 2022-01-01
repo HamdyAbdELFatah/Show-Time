@@ -2,6 +2,8 @@ package com.hamdy.showtime.ui.ui.person_list.ui
 
 import android.app.Application
 import android.app.Dialog
+import android.util.Log
+import android.widget.ProgressBar
 import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
@@ -17,33 +19,28 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class PersonListViewModel : ViewModel() {
-    private val personsRepository= PersonsRepository()
+    private val TAG = "PersonListViewModel"
+    private val personsRepository = PersonsRepository()
     var listPersons = MutableLiveData<List<PersonsResultsItem>>()
+    var listFavoritePersons = MutableLiveData<MutableMap<String,Boolean>>()
     var list = mutableListOf<PersonsResultsItem>()
-    lateinit var dialog:Dialog
-
-    fun myStart(dialog:Dialog){
-        this.dialog=dialog
+    private lateinit var dialog: Dialog
+    private var page = 1
+    fun myStart(dialog: Dialog) {
+        this.dialog = dialog
         getPopular()
     }
 
-    private fun getPopular() {
-
+    fun getPopular() {
         viewModelScope.launch(Dispatchers.Unconfined) {
-            val response1 = personsRepository.getPopular(1)
+            val response1 = personsRepository.getPopular(page)
             list.addAll(response1?.personsResults!!)
-            for (i in 2..response1.totalPages!!) {
-                val response = personsRepository.getPopular(i)
-                list.addAll(response?.personsResults!!)
-                if(list.size%500==0){
-                    withContext(Dispatchers.Main) {
-                        listPersons.postValue(list)
-                        dialog.cancel()
-                    }
-                }
-            }
+            val response2 = personsRepository.getAllFavorite()
             withContext(Dispatchers.Main) {
+                listFavoritePersons.postValue(response2)
                 listPersons.postValue(list)
+                dialog.cancel()
+                page++
             }
         }
     }

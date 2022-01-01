@@ -19,12 +19,14 @@
             app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
 
             app:toolbarId="@+id/toolbar">
+
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?actionBarSize"
                 app:layout_collapseMode="pin">
             </androidx.appcompat.widget.Toolbar>
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -59,9 +61,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center|bottom"
                     android:layout_marginStart="@dimen/_32sdp"
-                    android:layout_marginLeft="@dimen/_32sdp"
                     android:layout_marginEnd="@dimen/_32sdp"
-                    android:layout_marginRight="@dimen/_32sdp"
                     android:fontFamily="@font/play_fair_display_regular"
                     android:gravity="center"
                     android:textColor="#DDFFFFFF"
@@ -77,7 +77,7 @@
                     android:id="@+id/castNickName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/_8sdp"
+                    android:layout_marginBottom="@dimen/_2sdp"
                     android:fontFamily="@font/play_fair_display_bold"
                     android:gravity="center"
                     android:textColor="@color/white"
@@ -88,18 +88,18 @@
                     app:layout_constraintStart_toStartOf="@+id/castName"
                     tools:text="DiCaprio" />
             </androidx.constraintlayout.widget.ConstraintLayout>
+
             <ImageView
                 android:id="@+id/favoriteImage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_16sdp"
-                android:layout_marginRight="@dimen/_16sdp"
                 android:layout_gravity="right"
+                android:layout_marginTop="@dimen/_16sdp"
+                android:layout_marginEnd="@dimen/_16sdp"
+                android:layout_marginRight="@dimen/_16sdp"
                 app:layout_collapseMode="pin"
                 app:srcCompat="@drawable/ic_favorite"
-                tools:ignore="VectorDrawableCompat"
-                android:layout_marginEnd="@dimen/_16sdp" />
-
+                tools:ignore="VectorDrawableCompat" />
 
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
@@ -122,7 +122,6 @@
                 android:text="Known for"
                 android:textColor="@color/white"
                 android:textSize="@dimen/_20ssp"
-
                 android:layout_marginTop="@dimen/_16sdp"
                 android:layout_marginLeft="@dimen/_16sdp"
                 app:layout_constraintStart_toStartOf="parent"
@@ -134,6 +133,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
+                android:nestedScrollingEnabled="false"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 android:orientation="horizontal"
                 app:layout_constraintEnd_toEndOf="parent"

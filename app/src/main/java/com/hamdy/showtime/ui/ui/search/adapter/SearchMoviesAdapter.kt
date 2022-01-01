@@ -14,7 +14,7 @@ import com.hamdy.showtime.databinding.FavoriteItemBinding
 import com.hamdy.showtime.ui.model.SearchResultsItem
 import com.hamdy.showtime.ui.util.ImageUrlBase
 
-class SearchAdapter : RecyclerView.Adapter<SearchAdapter.Holder>() {
+class SearchMoviesAdapter : RecyclerView.Adapter<SearchMoviesAdapter.Holder>() {
     private var queries: List<SearchResultsItem?>? = null
     private var action: Int? = null
     var context: Context? = null
@@ -28,10 +28,13 @@ class SearchAdapter : RecyclerView.Adapter<SearchAdapter.Holder>() {
     override fun onBindViewHolder(holder: Holder, position: Int) {
         val query= queries?.get(position)
         //holder.companyName.text=movie?.
-        holder.movieImage.load(ImageUrlBase+query?.posterPath){
-            crossfade(true)
-            crossfade(500)
-        }
+        if(query?.posterPath == null)
+            holder.movieImage.load(R.drawable.no_poster_avilable)
+        else
+            holder.movieImage.load(ImageUrlBase+query.posterPath){
+                crossfade(true)
+                crossfade(500)
+            }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             holder.movieImage.clipToOutline = true
         }
@@ -44,8 +47,8 @@ class SearchAdapter : RecyclerView.Adapter<SearchAdapter.Holder>() {
 //                .addSharedElement(holder.moviesName, ViewCompat.getTransitionName(holder.moviesName)!!)
 //                .build()
             val bundle = Bundle()
-            bundle.putString("posterPath", query?.posterPath!!)
-            bundle.putInt("id", query.id!!)
+            bundle.putString("posterPath", query?.posterPath)
+            bundle.putInt("id", query?.id!!)
 //            bundle.putInt("position", position)
 //            bundle.putString("type", type)
             it.findNavController().navigate(action!!,bundle,null,null)

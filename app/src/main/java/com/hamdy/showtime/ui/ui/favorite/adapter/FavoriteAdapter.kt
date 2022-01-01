@@ -20,15 +20,16 @@ class FavoriteAdapter : RecyclerView.Adapter<FavoriteAdapter.Holder>() {
     var context: Context? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
-        context=parent.context
+        context = parent.context
         return Holder(
             LayoutInflater.from(context).inflate(R.layout.favorite_item, parent, false)
         )
     }
+
     override fun onBindViewHolder(holder: Holder, position: Int) {
-        val favorite= favorites?.get(position)
+        val favorite = favorites?.get(position)
         //holder.companyName.text=movie?.
-        holder.movieImage.load(ImageUrlBase+favorite?.poster){
+        holder.movieImage.load(ImageUrlBase + favorite?.poster) {
             crossfade(true)
             crossfade(500)
         }
@@ -48,23 +49,24 @@ class FavoriteAdapter : RecyclerView.Adapter<FavoriteAdapter.Holder>() {
             bundle.putInt("id", favorite.favoriteId.toInt())
 //            bundle.putInt("position", position)
 //            bundle.putString("type", type)
-            it.findNavController().navigate(action!!,bundle,null,null)
+            it.findNavController().navigate(action!!, bundle, null, null)
         }
 
     }
+
     override fun getItemCount(): Int {
-        if(favorites!=null)
+        if (favorites != null)
             return favorites!!.size
         return 0
     }
-
 
 
     fun setFavorite(favorites: List<FavoriteItem>) {
         this.favorites = favorites
         notifyDataSetChanged()
     }
-    fun setFavorite(favorites: List<FavoriteItem>,action:Int) {
+
+    fun setFavorite(favorites: List<FavoriteItem>, action: Int) {
         this.favorites = favorites
         this.action = action
         notifyDataSetChanged()

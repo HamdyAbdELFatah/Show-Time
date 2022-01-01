@@ -11,12 +11,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/colorPrimary">
-        <ImageView
+
+        <com.flaviofaria.kenburnsview.KenBurnsView
             android:id="@+id/moviesBackGroundImage"
             android:layout_width="0dp"
             android:layout_height="@dimen/_260sdp"
-
-            android:scaleType="centerCrop"
             android:src="@drawable/test"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -151,7 +150,7 @@
             app:layout_constraintTop_toBottomOf="@+id/textView10" />
 
         <ImageView
-            android:id="@+id/imageView5"
+            android:id="@+id/playButton"
             android:layout_width="@dimen/_43sdp"
             android:layout_height="@dimen/_30sdp"
             android:src="@drawable/ic_video_play"

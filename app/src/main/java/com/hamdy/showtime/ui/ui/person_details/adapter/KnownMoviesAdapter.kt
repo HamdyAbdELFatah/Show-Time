@@ -10,8 +10,10 @@ import androidx.core.os.bundleOf
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
+import coil.transform.RoundedCornersTransformation
 import com.hamdy.showtime.R
 import com.hamdy.showtime.databinding.MoviesItemBinding
+import com.hamdy.showtime.databinding.MoviesSmallItemBinding
 import com.hamdy.showtime.ui.model.SearchKnownForItem
 import com.hamdy.showtime.ui.util.ImageUrlBase
 import kotlin.random.Random
@@ -23,19 +25,21 @@ class KnownMoviesAdapter : RecyclerView.Adapter<KnownMoviesAdapter.Holder>() {
     private var lastPosition = -1
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
-        context=parent.context
+        context = parent.context
         return Holder(
             LayoutInflater.from(context).inflate(R.layout.movies_small_item, parent, false)
         )
     }
+
     override fun onBindViewHolder(holder: Holder, position: Int) {
-        val movie= movies?.get(position)
-        holder.moviesName.text=movie?.title
+        val movie = movies?.get(position)
+        holder.moviesName.text = movie?.title
         //holder.companyName.text=movie?.
-        holder.rateText.text=movie?.voteAverage.toString()
-        holder.movieImage.load(ImageUrlBase + movie?.posterPath){
+        holder.rateText.text = movie?.voteAverage.toString()
+        holder.movieImage.load(ImageUrlBase + movie?.posterPath) {
             crossfade(true)
             crossfade(500)
+
         }
 //        ViewCompat.setTransitionName(holder.movieImage, "${type}Image$position")
 //        ViewCompat.setTransitionName(holder.moviesName, "${type}Text$position")
@@ -50,12 +54,14 @@ class KnownMoviesAdapter : RecyclerView.Adapter<KnownMoviesAdapter.Holder>() {
             bundle.putInt("id", movie?.id!!)
 //            bundle.putInt("position", position)
 //            bundle.putString("type", type)
-            it.findNavController().navigate(R.id.action_navigation_person_to_moviesDetails,bundle,null,null)
+            it.findNavController()
+                .navigate(R.id.action_navigation_person_to_moviesDetails, bundle, null, null)
         }
 
     }
+
     override fun getItemCount(): Int {
-        if(movies!=null)
+        if (movies != null)
             return movies!!.size
         return 0
     }
@@ -91,10 +97,9 @@ class KnownMoviesAdapter : RecyclerView.Adapter<KnownMoviesAdapter.Holder>() {
     }*/
 
     class Holder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val binding = MoviesItemBinding.bind(itemView)
+        private val binding = MoviesSmallItemBinding.bind(itemView)
         val movieContainer = binding.movieContainer
         val movieImage = binding.movieImage
-        //val companyName = binding.companyName
         val moviesName = binding.moviesName
         val rateText = binding.rateText
 

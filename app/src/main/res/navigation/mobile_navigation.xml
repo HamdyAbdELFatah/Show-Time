@@ -68,6 +68,9 @@
         <action
             android:id="@+id/action_moviesDetails_to_loginFragment"
             app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_moviesDetails_to_videoPlayerFragment"
+            app:destination="@id/videoPlayerFragment" />
     </fragment>
     <fragment
         android:id="@+id/personListFragment"
@@ -111,5 +114,12 @@
         <action
             android:id="@+id/action_searchFragment_to_navigation_person"
             app:destination="@id/navigation_person" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/videoPlayerFragment"
+        android:name="com.hamdy.showtime.ui.ui.video_player.VideoPlayerFragment"
+        android:label="video_fragment"
+        tools:layout="@layout/fragment_video_player" >
     </fragment>
 </navigation>

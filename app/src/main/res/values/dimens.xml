@@ -4,6 +4,6 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="show_all_text_size">@dimen/_16ssp</dimen>
     <dimen name="title_category_text_size">@dimen/_20ssp</dimen>
-    <dimen name="recycle_view_movies_height">@dimen/_170sdp</dimen>
+    <dimen name="recycle_view_movies_height">@dimen/_220sdp</dimen>
 
 </resources>
