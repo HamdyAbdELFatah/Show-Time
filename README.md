@@ -20,7 +20,7 @@ Movies App by MVVM, Coroutines, Retrofit, Room, Navigation Component, ExoPlayer,
    - [Coil](https://coil-kt.github.io/coil/) - An image loading library for Android backed by Kotlin Coroutines.
    - [Retrofit](https://square.github.io/retrofit/) - A type-safe HTTP client for Android and Java.
    - [ExoPlayer](https://developer.android.com/guide/topics/media/exoplayer) - is an application level media player for Android. It provides an alternative to Android’s MediaPlayer API for playing audio and video both locally and over the Internet.
-- [Firebase](https://firebase.google.com/) - helps you buildand run successful apps.
+- [Firebase](https://firebase.google.com/) - helps you build and run successful apps.
 
 <br />
 
