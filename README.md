@@ -16,7 +16,11 @@ Movies App by MVVM, Coroutines, Retrofit, Room, Navigation Component, ExoPlayer,
   - [ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel) - Stores UI-related data that isn't destroyed on UI changes.
   - [Jetpack Navigation](https://developer.android.com/guide/navigation) - Navigation refers to the interactions that allow users to navigate across, into, and back out from the different pieces of content within your app
 - [Material Components for Android](https://github.com/material-components/material-components-android) - Modular and customizable Material Design UI components for Android.
-
+- [Third party libraries] - Collection of libraries that help you design robust, testable, and maintainable apps.
+   - [Coil](https://coil-kt.github.io/coil/) - An image loading library for Android backed by Kotlin Coroutines.
+   - [Retrofit](https://square.github.io/retrofit/) - A type-safe HTTP client for Android and Java.
+   - [ExoPlayer](https://developer.android.com/guide/topics/media/exoplayer) - is an application level media player for Android. It provides an alternative to Android’s MediaPlayer API for playing audio and video both locally and over the Internet.
+   - 
 <br />
 
 ## Architecture 🗼
