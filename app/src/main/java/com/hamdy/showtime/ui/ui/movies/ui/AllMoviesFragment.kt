@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.hamdy.showtime.R
 import com.hamdy.showtime.databinding.FragmentAllMoviesBinding
 import com.hamdy.showtime.ui.ui.home.adapter.HomeCategoryMoviesAdapter
+import com.hamdy.showtime.ui.ui.movies.adapter.SeeAllMoviesAdapter
 import com.hamdy.showtime.ui.util.MyItemDecoration
 
 class AllMoviesFragment : Fragment() {
@@ -47,7 +48,7 @@ class AllMoviesFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         Log.d(TAG, "onActivityCreated: Called")
 
-        val adapter = HomeCategoryMoviesAdapter()
+        val adapter = SeeAllMoviesAdapter()
         binding.allMoviesRecyclerView.layoutManager =
             StaggeredGridLayoutManager(2, LinearLayoutManager.VERTICAL)
         binding.allMoviesRecyclerView.addItemDecoration(MyItemDecoration(requireContext()))

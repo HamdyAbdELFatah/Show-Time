@@ -3,10 +3,17 @@ package com.hamdy.showtime.ui.ui.person_details.ui
 import android.content.Context
 import android.content.SharedPreferences
 import android.content.res.Resources
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import android.util.TypedValue
 import android.view.*
+import android.widget.FrameLayout
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
@@ -30,11 +37,11 @@ class PersonDetailsFragment : Fragment(), AppBarLayout.OnOffsetChangedListener {
     private var sharedIdValue = false
     private var favorite = false
     private var personId = 0
-    private var stoppercentage = 0F
+    private var stopOffset = -1000
+    private var stopOffsetImage = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        activity?.window?.clearFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
         viewModel = ViewModelProvider(this)[PersonDetailsViewModel::class.java]
         personId = arguments?.getInt("id")!!
         viewModel.getPersonDetails(personId)
@@ -54,16 +61,16 @@ class PersonDetailsFragment : Fragment(), AppBarLayout.OnOffsetChangedListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        removeStatusBarTransparent()
         val posterPath = arguments?.getString("posterPath")
         binding.appBarImage.load(ImageUrlBase + posterPath)
         binding.appBarImage.requestLayout()
         binding.viewDark.requestLayout()
-        castNameTextSize = binding.castName.textSize
-        castNickTextSize = binding.castNickName.textSize
-//        outRect.top = myContext.resources.getDimensionPixelSize(R.dimen._100sdp)
+        castNameTextSize = binding.castName.textSize / resources.displayMetrics.scaledDensity
+        castNickTextSize = binding.castNickName.textSize / resources.displayMetrics.scaledDensity
 
         binding.appbar.addOnOffsetChangedListener(this)
+
 
         binding.favoriteImage.setOnClickListener {
             val sharedPreferences: SharedPreferences =
@@ -140,12 +147,6 @@ class PersonDetailsFragment : Fragment(), AppBarLayout.OnOffsetChangedListener {
     }
 
 
-    enum class State {
-        EXPANDED, COLLAPSED, IDLE
-    }
-
-    private var mCurrentState = State.IDLE
-
     override fun onOffsetChanged(appBarLayout: AppBarLayout?, offset: Int) {
         // expand  offset   0     525  84  441
         //collapse offset -441     84  84  441
@@ -153,43 +154,38 @@ class PersonDetailsFragment : Fragment(), AppBarLayout.OnOffsetChangedListener {
         val appBarHeight: Int = appBarLayout!!.measuredHeight
         val appBarWidth: Int = appBarLayout.measuredWidth
         val maxScroll = appBarLayout.totalScrollRange
+
         val percentage: Float = abs(offset).toFloat() / maxScroll.toFloat()
-        Log.d(
-            TAG,
-            "onOffsetChanged: offset $offset     ${appBarHeight + offset}  $toolBarHeight  $maxScroll"
-        )
+//        Log.d(
+//            TAG,
+//            "onOffsetChanged: offset $offset     ${appBarHeight + offset}  $toolBarHeight  $maxScroll"
+//        )
 //        Log.d(TAG, "onOffsetChanged: maxScroll $maxScroll   percentage  $percentage")
         val density = Resources.getSystem().displayMetrics.density
-
-//        view?.layoutParams?.height = appBarHeight+offset * density.toInt()
         val plus = 20
-//        plus = if(percentage>0.5f) (30*density).toInt() else 0
-
-        binding.appBarImage.apply {
-            layoutParams.height = (appBarHeight + offset + percentage * plus * density).toInt()
-            layoutParams.width = (appBarWidth + offset + percentage * (plus + 5) * density).toInt()
+        if (binding.appBarImage.width >= toolBarHeight || offset > stopOffsetImage) {
+            binding.appBarImage.apply {
+                layoutParams.height = (appBarHeight + offset + percentage * plus * density).toInt()
+                layoutParams.width = (appBarWidth + offset + percentage * (plus) * density).toInt()
+                stopOffsetImage = offset
+            }
         }
 //        binding.viewDark.apply {
 //            layoutParams.height= (appBarHeight+offset + percentage * plus * density).toInt()
 //            layoutParams.width= (appBarHeight+offset + percentage * plus * density).toInt()
 //        }
-        if (binding.castName.measuredHeight > toolBarHeight / 2 || percentage < stoppercentage ) {
+        if ((binding.castNickName.measuredHeight >= toolBarHeight / 2
+                    || ((appBarHeight + offset) - (toolBarHeight * 2)) > toolBarHeight)
+        ) {
             binding.castName.textSize =
                 castNameTextSize - (castNameTextSize * percentage)
+
             binding.castNickName.textSize =
-                castNickTextSize - (percentage * (castNickTextSize))
-            stoppercentage = percentage
-        }else if (percentage < stoppercentage){
+                castNickTextSize - (castNickTextSize * percentage)
 
         }
-//        Expand Dark 36.0 54.0
-//        collap Dark 36.0 0.0
-        Log.d(
-            TAG,
-            "onOffsetChanged: offset Dark" +
-                    " $castNameTextSize ${(percentage * (castNameTextSize))}" +
-                    " ${binding.castName.textSize}"
-        )
+
+
         val paramsImage = binding.appBarImage.layoutParams as (ConstraintLayout.LayoutParams)
         paramsImage.horizontalBias = 1 - (1.0f - percentage) / 2
         paramsImage.marginEnd = (50 * percentage * density).toInt()
@@ -208,25 +204,55 @@ class PersonDetailsFragment : Fragment(), AppBarLayout.OnOffsetChangedListener {
         paramsCastName.horizontalBias = (1.0f - percentage) / 2
         binding.castName.layoutParams = paramsCastName
 
-        when {
-            offset == 0 -> {
-                if (mCurrentState != State.EXPANDED) {
-                    Log.d(TAG, "onOffsetChanged:  ${State.EXPANDED}")
+    }
+
+
+    private fun removeStatusBarTransparent() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            val window: Window = requireActivity().window
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+            window.statusBarColor = ContextCompat.getColor(requireContext(), R.color.colorPrimary)
+        }
+        val root: ConstraintLayout? = activity?.findViewById(R.id.root)
+        if (root != null) {
+            ViewCompat.setOnApplyWindowInsetsListener(root) { view, windowInsets ->
+                val insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars())
+                view.layoutParams = (view.layoutParams as FrameLayout.LayoutParams).apply {
+                    topMargin = insets.top
+                    leftMargin = insets.left
+                    bottomMargin = insets.bottom
+                    rightMargin = insets.right
                 }
-                mCurrentState = State.EXPANDED
-            }
-            abs(offset) >= appBarLayout.totalScrollRange -> {
-                if (mCurrentState != State.COLLAPSED) {
-                    Log.d(TAG, "onOffsetChanged:  ${State.COLLAPSED}")
-                }
-                mCurrentState = State.COLLAPSED
-            }
-            else -> {
-                if (mCurrentState != State.IDLE) {
-                    Log.d(TAG, "onOffsetChanged:  ${State.IDLE}")
-                }
-                mCurrentState = State.IDLE
+                WindowInsetsCompat.CONSUMED
             }
         }
+    }
+
+    private fun addStatusBarTransparent() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            val window: Window = requireActivity().window
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+            window.statusBarColor = ContextCompat.getColor(requireContext(), R.color.transparent)
+
+        }
+        WindowCompat.setDecorFitsSystemWindows(activity?.window!!, false)
+        val root: ConstraintLayout? = activity?.findViewById(R.id.root)
+        if (root != null) {
+            ViewCompat.setOnApplyWindowInsetsListener(root) { view, windowInsets ->
+                val insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars())
+                view.layoutParams = (view.layoutParams as FrameLayout.LayoutParams).apply {
+                    topMargin = 0
+                    leftMargin = insets.left
+                    bottomMargin = insets.bottom
+                    rightMargin = insets.right
+                }
+                WindowInsetsCompat.CONSUMED
+            }
+        }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        addStatusBarTransparent()
     }
 }

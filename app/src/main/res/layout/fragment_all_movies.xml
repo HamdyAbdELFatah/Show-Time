@@ -4,6 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+
     tools:context=".ui.ui.movies.ui.AllMoviesFragment">
 
     <androidx.recyclerview.widget.RecyclerView
@@ -11,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:background="@color/colorPrimary"
-        tools:listitem="@layout/movies_item"
+        tools:listitem="@layout/movies_list_item"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         app:spanCount="2"
         app:layout_constraintBottom_toTopOf="@+id/loadingMoreProgressBar"

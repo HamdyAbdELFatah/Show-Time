@@ -12,7 +12,7 @@
         android:supportsRtl="false"
         android:usesCleartextTraffic="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.ui.MainActivity" android:windowSoftInputMode="adjustPan|adjustResize" />
+        <activity android:name=".ui.ui.MainActivity" android:windowSoftInputMode="adjustPan|adjustResize" android:screenOrientation="portrait" />
         <activity android:name=".ui.Splash"
             android:exported="true">
             <intent-filter>

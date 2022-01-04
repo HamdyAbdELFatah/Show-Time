@@ -47,10 +47,11 @@
 
             <TextView
                 android:id="@+id/movieName"
-                android:layout_width="@dimen/_205sdp"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_4sdp"
                 android:maxLines="2"
+                android:layout_marginStart="@dimen/_1sdp"
                 android:textColor="@color/white"
                 android:textSize="@dimen/_14sdp"
                 app:layout_constraintEnd_toStartOf="@+id/favoriteIcon"

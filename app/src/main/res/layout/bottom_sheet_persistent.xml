@@ -4,6 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:forceDarkAllowed="false"
+
     android:background="@drawable/curve_white_background"
     android:paddingBottom="32dp">
 

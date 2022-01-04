@@ -1,13 +1,20 @@
 package com.hamdy.showtime.ui.ui.search.ui
 
+import android.graphics.Color
+import android.os.Build
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
+import android.util.Log
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.view.WindowManager
+import android.widget.FrameLayout
 import android.widget.Toast
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.updateLayoutParams
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayoutMediator
 import com.hamdy.showtime.R
@@ -17,17 +24,14 @@ import com.hamdy.showtime.ui.ui.search.fragment.movie_search.ui.SearchMoviesFrag
 import com.hamdy.showtime.ui.ui.search.fragment.movie_search.ui.SearchMoviesViewModel
 
 
-class SearchFragment : Fragment() {
 
+
+
+class SearchFragment : Fragment() {
+    private val TAG = "SearchFragment"
     private lateinit var binding: SearchFragmentBinding
     private lateinit var viewPager2: ViewPager2
     private lateinit var viewModel: SharedViewModel
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        activity?.window?.clearFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
-
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -41,6 +45,7 @@ class SearchFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(requireActivity())[SharedViewModel::class.java]
+        removeStatusBarTransparent()
         viewPager2 = binding.viewPagerSearch
         viewPager2.isUserInputEnabled = false
         val adapter = SearchViewPagerAdapter(childFragmentManager, lifecycle)
@@ -58,5 +63,57 @@ class SearchFragment : Fragment() {
             )
         }
     }
+    private fun removeStatusBarTransparent(){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            val window: Window = requireActivity().window
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+            window.statusBarColor = ContextCompat.getColor(requireContext(), R.color.colorPrimary)
+        }
+        val root : ConstraintLayout? = activity?.findViewById(R.id.root)
+        if (root != null) {
+            ViewCompat.setOnApplyWindowInsetsListener(root) { view, windowInsets ->
+                val insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars())
+                view.layoutParams =  (view.layoutParams as FrameLayout.LayoutParams).apply {
+                    topMargin = insets.top
+                    leftMargin = insets.left
+                    bottomMargin = insets.bottom
+                    rightMargin = insets.right
+                }
+                WindowInsetsCompat.CONSUMED
+            }
+        }
+    }
+    private fun addStatusBarTransparent(){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            val window: Window = requireActivity().window
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+            window.statusBarColor = ContextCompat.getColor(requireContext(), R.color.transparent)
 
+        }
+        WindowCompat.setDecorFitsSystemWindows(activity?.window!!, false)
+        val root : ConstraintLayout? = activity?.findViewById(R.id.root)
+        if (root != null) {
+            ViewCompat.setOnApplyWindowInsetsListener(root) { view, windowInsets ->
+                val insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars())
+                view.layoutParams =  (view.layoutParams as FrameLayout.LayoutParams).apply {
+                    topMargin = 0
+                    leftMargin = insets.left
+                    bottomMargin = insets.bottom
+                    rightMargin = insets.right
+                }
+                WindowInsetsCompat.CONSUMED
+            }
+        }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        Log.d(TAG, "onPause: ")
+    }
+    override fun onStop() {
+        super.onStop()
+        Log.d(TAG, "onStop: ")
+
+        addStatusBarTransparent()
+    }
 }

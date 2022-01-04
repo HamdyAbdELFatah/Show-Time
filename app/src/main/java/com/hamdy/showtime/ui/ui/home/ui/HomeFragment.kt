@@ -17,7 +17,6 @@ import com.hamdy.showtime.R
 import com.hamdy.showtime.databinding.FragmentHomeBinding
 import com.hamdy.showtime.ui.ui.home.adapter.HomeCategoryMoviesAdapter
 import com.hamdy.showtime.ui.ui.home.adapter.TrendingAdapter
-import kotlinx.android.synthetic.main.fragment_home.*
 
 
 class HomeFragment : Fragment(), View.OnClickListener {

@@ -10,6 +10,7 @@ import com.hamdy.showtime.databinding.FragmentVideoPlayerBinding
 import at.huber.youtubeExtractor.VideoMeta
 import at.huber.youtubeExtractor.YtFile
 import android.util.SparseArray
+import android.view.WindowManager
 import at.huber.youtubeExtractor.YouTubeExtractor
 import com.google.android.exoplayer2.MediaItem
 import com.google.android.exoplayer2.Player
@@ -18,7 +19,9 @@ import com.google.android.exoplayer2.source.MergingMediaSource
 import com.google.android.exoplayer2.source.ProgressiveMediaSource
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSource
 import com.google.android.exoplayer2.util.Util
+import com.hamdy.showtime.ui.ui.MainActivity
 import com.hamdy.showtime.ui.util.YouTubeBase
+
 
 
 class VideoPlayerFragment : Fragment(), Player.Listener {
@@ -40,6 +43,10 @@ class VideoPlayerFragment : Fragment(), Player.Listener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         youtubeLink = YouTubeBase + arguments?.get("url").toString()
+        if(activity != null && activity is MainActivity){
+            (activity as MainActivity?)?.getNav()?.visibility = View.GONE
+
+        }
 
         initializePlayer()
 
@@ -119,8 +126,17 @@ class VideoPlayerFragment : Fragment(), Player.Listener {
     }
 
     override fun onPause() {
-        if (Util.SDK_INT < 24) releasePlayer()
+//        if (Util.SDK_INT < 24)
+            releasePlayer()
         super.onPause()
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        if(activity != null && activity is MainActivity){
+            (activity as MainActivity?)?.getNav()?.visibility = View.VISIBLE
+
+        }
     }
 
     private fun releasePlayer() {

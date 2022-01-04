@@ -2,8 +2,10 @@ package com.hamdy.showtime.ui.ui.movies_details.ui
 
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
+import android.app.Activity
 import android.content.Context
 import android.content.SharedPreferences
+import android.graphics.Color
 import android.graphics.Path
 import android.os.Build
 import android.os.Bundle
@@ -14,6 +16,7 @@ import android.view.WindowManager
 import android.view.animation.*
 import android.widget.Toast
 import androidx.annotation.RequiresApi
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
@@ -24,7 +27,9 @@ import com.hamdy.showtime.databinding.FragmentMoviesDetailsBinding
 import com.hamdy.showtime.ui.ui.movies_details.adapter.CastAdapter
 import com.hamdy.showtime.ui.util.ImageUrlBase
 import androidx.core.os.bundleOf
+import androidx.core.view.marginBottom
 import com.flaviofaria.kenburnsview.RandomTransitionGenerator
+import com.hamdy.showtime.ui.ui.MainActivity
 
 import com.hamdy.showtime.ui.util.BackgroundTransitionGenerator
 
@@ -59,10 +64,13 @@ class MoviesDetails : Fragment() {
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        activity?.window?.setFlags(
-            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
-            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
-        )
+
+//        activity?.window?.setFlags(
+//            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
+//            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
+//        )
+
+
         val posterPath = arguments?.get("posterPath").toString()
         val id = arguments?.getInt("id")!!
 
@@ -172,4 +180,6 @@ class MoviesDetails : Fragment() {
         super.onDetach()
         activity?.window?.clearFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
     }
+
+
 }

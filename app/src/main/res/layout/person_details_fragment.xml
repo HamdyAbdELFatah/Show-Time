@@ -24,6 +24,7 @@
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?actionBarSize"
+                android:elevation="@dimen/_24sdp"
                 app:layout_collapseMode="pin">
             </androidx.appcompat.widget.Toolbar>
 
@@ -66,6 +67,7 @@
                     android:gravity="center"
                     android:textColor="#DDFFFFFF"
                     android:textSize="@dimen/_24ssp"
+
                     app:layout_collapseMode="pin"
                     app:layout_constraintBottom_toTopOf="@+id/castNickName"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -94,10 +96,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
-                android:layout_marginTop="@dimen/_16sdp"
+                android:layout_marginTop="@dimen/_14sdp"
                 android:layout_marginEnd="@dimen/_16sdp"
                 android:layout_marginRight="@dimen/_16sdp"
                 app:layout_collapseMode="pin"
+
                 app:srcCompat="@drawable/ic_favorite"
                 tools:ignore="VectorDrawableCompat" />
 
@@ -134,8 +137,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
                 android:nestedScrollingEnabled="false"
+
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 android:orientation="horizontal"
+                tools:listitem="@layout/movies_small_item"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@+id/knownText"

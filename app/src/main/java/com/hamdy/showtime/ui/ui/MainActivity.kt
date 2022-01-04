@@ -1,9 +1,16 @@
 package com.hamdy.showtime.ui.ui
 
+import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.view.WindowManager
+import android.widget.FrameLayout
+import android.widget.Toolbar
 import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -11,17 +18,40 @@ import com.hamdy.showtime.R
 
 
 class MainActivity : AppCompatActivity() {
-
+    private lateinit var navView: BottomNavigationView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-            window.setFlags (WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
-                    ,WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
+        WindowCompat.setDecorFitsSystemWindows(window, false)
+
+        if (Build.VERSION.SDK_INT >= 30) {
+
+            // Root ViewGroup of my activity
+            val root = findViewById<ConstraintLayout>(R.id.root)
+
+            ViewCompat.setOnApplyWindowInsetsListener(root) { view, windowInsets ->
+
+                val insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars())
+
+                // Apply the insets as a margin to the view. Here the system is setting
+                // only the bottom, left, and right dimensions, but apply whichever insets are
+                // appropriate to your layout. You can also update the view padding
+                // if that's more appropriate.
+
+                view.layoutParams =  (view.layoutParams as FrameLayout.LayoutParams).apply {
+                    leftMargin = insets.left
+                    bottomMargin = insets.bottom
+                    rightMargin = insets.right
+                }
+
+                // Return CONSUMED if you don't want want the window insets to keep being
+                // passed down to descendant views.
+                WindowInsetsCompat.CONSUMED
+            }
+
         }
 
-        val navView: BottomNavigationView = findViewById(R.id.nav_view)
+        navView = findViewById(R.id.nav_view)
 
         //navView.setBackgroundColor(ContextCompat.getColor(applicationContext, android.R.color.transparent))
 
@@ -35,5 +65,8 @@ class MainActivity : AppCompatActivity() {
         )*/
         //setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+    }
+    public fun getNav(): BottomNavigationView {
+        return navView
     }
 }

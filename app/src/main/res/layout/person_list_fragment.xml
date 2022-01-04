@@ -4,12 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+
     tools:context=".ui.ui.person_list.ui.PersonListFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/personListRecyclerView"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:background="@color/colorPrimary"
+
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         app:spanCount="2"
         app:layout_constraintBottom_toTopOf="@+id/loadingMoreProgressBar"
