@@ -24,7 +24,6 @@
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?actionBarSize"
-                android:elevation="@dimen/_24sdp"
                 app:layout_collapseMode="pin">
             </androidx.appcompat.widget.Toolbar>
 
