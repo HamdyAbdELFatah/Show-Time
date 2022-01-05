@@ -10,9 +10,9 @@ Home | Movies Details | Movies List | Person List | Person Details
 
 <br />
 
-Favorite Movies | Search Movies | Sign in | Sign Up
---- | --- | --- | --- 
-![](Screen/FavoriteMovies.png) | ![](Screen/SearchMovies.png)  | ![](Screen/Signin.png) | ![](Screen/SignUp.png)
+Favorite Movies | Search Movies | Sign in | Sign Up | Person Details collapsed
+--- | --- | --- | --- | --- 
+![](Screen/FavoriteMovies.png) | ![](Screen/SearchMovies.png)  | ![](Screen/Signin.png) | ![](Screen/SignUp.png) | ![](Screen/PersonDetails2.png)
 
 
 
