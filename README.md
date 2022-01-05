@@ -6,7 +6,7 @@ Movies App by MVVM, Coroutines, Retrofit, Room, Navigation Component, ExoPlayer,
 ## Screens
 Home | Movies Details | Movies List | Person List | Person Details | Favorite Movies | Search Movies
 --- | --- | --- | --- | --- | --- | ---
-![](Screen/Home.jpg) | ![](Screen/Movies Details.jpg) | ![](Screen/Movies List.jpg) | ![](Screen/Person List.jpg) | ![](Screen/Person Details.jpg) | ![](Screen/Favorite Movies.jpg) | ![](Screen/Search Movies.jpg)
+![](Screen/Home.png) | ![](Screen/Movies Details.jpg) | ![](Screen/Movies List.jpg) | ![](Screen/Person List.jpg) | ![](Screen/Person Details.jpg) | ![](Screen/Favorite Movies.jpg) | ![](Screen/Search Movies.jpg)
 
 
 
