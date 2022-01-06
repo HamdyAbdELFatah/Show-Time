@@ -4,15 +4,15 @@ Movies App by MVVM, Coroutines, Retrofit, Room, Navigation Component, ExoPlayer,
 <br />
 
 ## Screens
-Home | Movies Details | Movies List | Person List | Person Details 
---- | --- | --- | --- | --- 
-![](Screen/Home.png) | ![](Screen/MoviesDetails.png) | ![](Screen/MoviesList.png) | ![](Screen/PersonList.png) | ![](Screen/PersonDetails.png)
+Home | Movies Details | Movies List | Person List | Actor Details | Favorite Actors  
+--- | --- | --- | --- | --- | ---  
+![](Screen/Home.png) | ![](Screen/MoviesDetails.png) | ![](Screen/MoviesList.png) | ![](Screen/PersonList.png) | ![](Screen/PersonDetails.png) | ![](Screen/FavoritePersons.png)
 
 <br />
 
-Favorite Movies | Search Movies | Sign in | Sign Up | Person Details collapsed
---- | --- | --- | --- | --- 
-![](Screen/FavoriteMovies.png) | ![](Screen/SearchMovies.png)  | ![](Screen/Signin.png) | ![](Screen/SignUp.png) | ![](Screen/PersonDetails2.png)
+Favorite Movies | Search Movies | Sign in | Sign Up | Actor Details collapsed | Trailer  
+--- | --- | --- | --- | --- | --- 
+![](Screen/FavoriteMovies.png) | ![](Screen/SearchMovies.png)  | ![](Screen/Signin.png) | ![](Screen/SignUp.png) | ![](Screen/PersonDetails2.png) | ![](Screen/Trailer.png)
 
 
 
