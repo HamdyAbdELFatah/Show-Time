@@ -1,5 +1,5 @@
 # Show-Time
-Movies App by MVVM, Coroutines, Retrofit, Room, Navigation Component, ExoPlayer, Coil and Firebase
+Movies App by MVVM, Coroutines, Retrofit, Navigation Component, ExoPlayer, Coil and Firebase
 
 <br />
 
