@@ -1,5 +1,5 @@
 # Show-Time
-Movies App by Kotlin, MVVM, Coroutines, Retrofit, Navigation Component, ExoPlayer, Coil and Firebase
+A “Show Time” application lets users Discover New Movies, manage their favorite shows, and discover top-rated Movie
 
 <br />
 
