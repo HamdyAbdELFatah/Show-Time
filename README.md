@@ -16,7 +16,6 @@ Favorite Movies | Search Movies | Sign in | Sign Up | Actor Details collapsed | 
 
 
 
-
 <br />
 
 
