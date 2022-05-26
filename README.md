@@ -15,7 +15,6 @@ Favorite Movies | Search Movies | Sign in | Sign Up | Actor Details collapsed | 
 ![](Screen/FavoriteMovies.png) | ![](Screen/SearchMovies.png)  | ![](Screen/Signin.png) | ![](Screen/SignUp.png) | ![](Screen/PersonDetails2.png) | ![](Screen/Trailer.png)
 
 
-
 <br />
 
 
